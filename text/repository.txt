@@ -1,0 +1,103 @@
+for (short c = 0 ; c < COLS; c++){
+    mark_counter = 0 ; // Resets counter at each new column
+
+    for (short r = 0 ; r < ROWS; r++){
+
+      if (board[r][c] == "[" + mark + "]"){
+
+        // Checks for diagonal 4 in a row in BACKWARD slash form
+
+        const bool IndexisInVector = 
+        (r+3 < ROWS && r+3 > 0) && (c+3 < COLS && c+3 > 0);
+
+        while (IndexisInVector){
+          
+          ++mark_counter; 
+
+          if (mark_counter >= 4){
+            // Highlights all the 4 marks in a row by going backwards in index
+            do board[r--][c--] = "[\x1b[7m" + mark + "]\x1b[27m"; 
+            while(r >= 0 && board[r][c] == "[" + mark + "]");
+
+            // Clear screen and display winner board
+            clrscr(); displayBoard(board, COLS);
+
+            return true;
+          }
+          else
+            r++, c++;
+
+        }
+        mark_counter = 0;
+
+
+        // Checks for diagonal 4 in a row in FORWARD slash form
+
+        const bool IndexisInVector_2 = 
+        (r+3 < ROWS && r+3 > 0 ) && (c-3 < COLS && c-3 > 0);
+
+        while (IndexisInVector_2 ){
+
+            ++mark_counter; 
+ 
+          if (mark_counter >= 4){
+            // Highlights all the 4 marks in a row by going backwards in index
+            do board[r--][c++] = "[\x1b[7m" + mark + "]\x1b[27m"; 
+            while(r >= 0 && board[r][c] == "[" + mark + "]");
+
+            // Clear screen and display winner board
+            clrscr(); displayBoard(board, COLS);
+
+            return true;
+          }  
+          else
+            r++,c--;
+
+        }
+      }
+    }
+  }
+
+  mark_counter = 0;
+
+
+
+
+  // Backward slash diagonal scan
+  for (int c = 0 ; c < COLS ; c++){
+
+    int i = 0, j = c;
+
+    while (i < ROWS &&  j < COLS){
+
+      if (board[i][j] == "[" + mark + "]")
+        mark_counter++;
+      else
+        mark_counter = 0;
+
+      if (mark_counter >= 4){
+
+        // Clear screen and display winner board
+        clrscr(); displayBoard(board, COLS);
+
+        return true; 
+      }
+      else
+        i++, j++;
+
+    }
+    // Reset Variables if 4 in a row was not found
+    i = 0, j = 0, mark_counter = 0;
+
+    while (i < ROWS &&  j < COLS)
+
+  }
+
+// Este codigo empuja todo una fila hacia abajo
+
+  for (int i = 0; i < COLS ; i++)
+    board[0][i] = "[ ]"; // Empties top row
+
+  for(int i = row; i > 0; i--)
+    for(int j = 0; j < COLS; j++) 
+      board[i][j] = board[i - 1][j]; // Shift elements above down

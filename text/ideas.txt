@@ -1,0 +1,13 @@
+Modo Invisible - Los caracteres y colores son iguales para ambos jugadores
+Modo Rainbow - Los Colores de los elementos cambian cada turno
+Modo Movidas Especiales (Limitadas)
+-Borrar columna
+-Borrar filas
+basicamente iterar sobre esa fila y borrar todos los elementos, en el caso de 
+filas pues se aplica la gravedad y se le anade uno al index de filas
+
+hints opcionales como "Player 1 is close to connecting 4!" si markCounter llega a 3 
+
+change player 1 to player actual mark
+
+draw mode 
