@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include "mark.h"
-#include "clear.h"
+#include "sub.cpp"
 using namespace std;
 
 // Main Functions
@@ -14,20 +14,16 @@ void COLORS_MENU(); // Allows change in color
 void CHARS_MENU(); // Allows change in character 
 
 // Board functions
-void displayBoard (vector<vector<string>>, short); // Displays game board
+void displayBoard (vector<vector<string>>, short, bool); // Displays game board
 bool isFourInARow (vector<vector<string>>, short, string); // Checks for 4-in-a-row
 void highlightMark (vector<vector<string>>, int, int); // Highlights 4-in-a-row marks
 void deleteColumn (vector<vector<string>> &, short, int); // Deletes a col in game board
 void deleteRow (vector<vector<string>> &, short, int); // Deletes a row in game board
 
-// Compiler Functions
-// inline void clrscr(); // Clear Screen
-// inline void clrln(); // Clear line
 
-
-//Global Variables for player marks
-mark P1 = {"", "X\x1b[0m"};
-mark P2 = {"", "O\x1b[0m"};
+//Default Variables for player marks
+mark P1 = {"\u001b[31m", "O\x1b[0m"}; // RED "O"
+mark P2 = {"\u001b[33m", "O\x1b[0m"}; // YELLOW "O"
 
 string P1_mark = P1.color + P1.character;
 string P2_mark = P2.color + P2.character;
@@ -67,17 +63,18 @@ int main(){
   }
   while(1);
 
+
 }
 
 
 
 void OPTIONS_MENU(){
 
-  //Used to save color to add in CHAR_MENU
-  string P1_color, P2_color;
-
   do{
     clrscr();
+    
+    if (P1_mark == P2_mark)
+      warning("Marks are identical!\n\n");
 
     int option;
     cout << "\x1b[1mCustomization Options\x1b[22m\n\n";
@@ -89,16 +86,23 @@ void OPTIONS_MENU(){
     cout << "\nSelection: ";
     cin >> option;
 
-    // input validation
-    if (option < 1 || option > 3)
-      cout << "ERROR, please enter number 1-3\n";
-
     switch(option){
       case 1: clrscr(); COLORS_MENU(); break;
       
       case 2: clrscr(); CHARS_MENU(); break;
   
-      case 3: clrscr(); main(); break;
+      case 3: 
+        clrscr(); 
+
+        if (P1_mark == P2_mark){
+          error("Marks cannot be identical. Please make a change.\n\n");
+          cout << "(Press ENTER to return to OPTIONS menu)";
+          cin.ignore(); cin.get();
+        }
+        else
+          main(); 
+        
+        break;
     }
   }
   while(1);
@@ -107,20 +111,19 @@ void OPTIONS_MENU(){
 
 
 
-
 void COLORS_MENU(){
     
   // Display List of available colors in with ANSI codes
 
   cout << "Available colors:\n"
-     << "\t1.\u001b[31m Red\u001b[0m\n"
-     << "\t2.\u001b[32m Green\u001b[0m\n"
-     << "\t3.\u001b[33m Yellow\u001b[0m\n"
-     << "\t4.\u001b[34m Blue\u001b[0m\n"
-     << "\t5.\u001b[35m Magenta\u001b[0m\n"
-     << "\t6.\u001b[36m Cyan\u001b[0m\n"
-     << "\t7. White (Default)\n"
-     << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+       << "\t1.\u001b[31m Red\u001b[0m\n"
+       << "\t2.\u001b[32m Green\u001b[0m\n"
+       << "\t3.\u001b[33m Yellow\u001b[0m\n"
+       << "\t4.\u001b[34m Blue\u001b[0m\n"
+       << "\t5.\u001b[35m Magenta\u001b[0m\n"
+       << "\t6.\u001b[36m Cyan\u001b[0m\n"
+       << "\t7. White (Default)\n"
+       << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
   
   int option;
 
@@ -174,16 +177,16 @@ void CHARS_MENU(){
   cout << "Available Icons:\n\n";
 
   cout << "\t1. ★\n"
-     << "\t2. ❆\n"
-     << "\t3. ✦\n"
-     << "\t4. ♡\n"
-     << "\t5. ♫\n"
-     << "\t6. ☽\n"
-     << "\t7. ☢\n"
-     << "\t8. ✿\n"
-     << "\t9. A-Z Characters [Not Coded]\n"
-     << "\t10. Paste your own [Not Coded]\n"
-     << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+       << "\t2. ❆\n"
+       << "\t3. ✦\n"
+       << "\t4. ♡\n"
+       << "\t5. ♫\n"
+       << "\t6. ☽\n"
+       << "\t7. ☢\n"
+       << "\t8. ✿\n"
+       << "\t9. A-Z Characters [Not Coded]\n"
+       << "\t10. Paste your own [Not Coded]\n"
+       << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 
   int option;
   /////// PLAYER 1 SELECTION ///////
@@ -206,7 +209,7 @@ void CHARS_MENU(){
     case 5: P1.character = "♫\u001b[0m"; break;
     case 6: P1.character = "☽\u001b[0m"; break;
     case 7: P1.character = "☢\u001b[0m"; break;
-    case 8: P1.character = "✿\u001b[0m"; break;
+    case 8: P1.character = "✿\u001b[0m"; break; 
   }
 
   P1_mark = P1.color + P1.character;
@@ -256,7 +259,6 @@ void CHARS_MENU(){
 void RUN_GAME(bool isPractice){
   
   //Declare Variables
-  short option; // Used for menu
   short ROWS, COLS; // Rows and columns for the board matrix
   bool abilityMode = false;
   
@@ -267,12 +269,12 @@ void RUN_GAME(bool isPractice){
        << "3. First player to connect four marks in a row wins the game.\n ";
 
   cout << "\n(Press ENTER to continue)" << endl;
-  cin.ignore();
-  cin.get();
+  cin.ignore(); cin.get();
 
   clrscr();
   
 //Display Board Size Options
+  short option;
   do 
   {
     clrscr();
@@ -295,7 +297,7 @@ void RUN_GAME(bool isPractice){
 
     case 1: COLS = 7 , ROWS = 6; break;
     case 2: COLS = 9 , ROWS = 8; break;
-    case 3: COLS = 12, ROWS = 9; break; 
+    case 3: COLS = 11, ROWS = 9; break; 
   }
 
 //Display Game Mode Options
@@ -337,10 +339,10 @@ void RUN_GAME(bool isPractice){
   vector<vector<string>> board(ROWS);
 
   for (short r = 0; r < ROWS; r++) 
-      for (short c = 0; c < COLS; c++)  
-          board[r] = vector<string>(COLS, "[ ]"); //Writes into every element
+    for (short c = 0; c < COLS; c++)
+      board[r] = vector<string>(COLS, "[ ]");
 
-  displayBoard(board, COLS);
+  displayBoard(board, COLS, abilityMode);
   
   /// Declaration of game variables ///
 
@@ -375,7 +377,6 @@ void RUN_GAME(bool isPractice){
       rowDel = &rowDel_P2;
     }
 
-    // Check if current state of board has 4 in a row
     if (isFourInARow(board, COLS, player_mark))
       no_winner = false;
 
@@ -427,7 +428,7 @@ void RUN_GAME(bool isPractice){
             
             deleteColumn(board, COLS, inputColumn);
             
-            displayBoard(board, COLS);
+            displayBoard(board, COLS, abilityMode);
             
             if (isFourInARow(board, COLS, player_mark))
               no_winner = false;
@@ -443,7 +444,7 @@ void RUN_GAME(bool isPractice){
             
             deleteRow(board, COLS, inputRow);
               
-            displayBoard(board, COLS);
+            displayBoard(board, COLS, abilityMode);
             break;
         }
         
@@ -457,7 +458,7 @@ void RUN_GAME(bool isPractice){
     else{
       do{
       cout << "Player " << current_player << " (" << player_mark 
-          << ") , enter a column # or : ";
+          << ") enter a column #: ";
       cin >> inputColumn;
       clrln();
       }
@@ -487,11 +488,8 @@ void RUN_GAME(bool isPractice){
     if (board[row][inputColumn] == "[ ]" && !usedAbility)
       board[row][inputColumn] = "[" + player_mark + "]";
 
-    // Clear old board
-    clrscr();
-    
-    //Display Modified board
-    displayBoard(board, COLS);
+    // Clear old board and display Modified board
+    clrscr(); displayBoard(board, COLS, abilityMode);
 
 ///// Verify if 4-in-a-row /////
 
@@ -540,7 +538,7 @@ bool isFourInARow (vector<vector<string>> board, short COLS, string mark){
           while(board[c][r] == "[" + mark + "]");
 
           // Clear screen and display winner board
-          clrscr(); displayBoard(board, COLS);
+          clrscr(); displayBoard(board, COLS, false);
         
         return true; // 4 in a row = true
         }
@@ -569,7 +567,7 @@ bool isFourInARow (vector<vector<string>> board, short COLS, string mark){
           while(r >= 0 && board[r][c] == "[" + mark + "]");
 
           // Clear screen and display winner board
-          clrscr(); displayBoard(board, COLS);
+          clrscr(); displayBoard(board, COLS, false);
         
           return true; 
         }
@@ -588,7 +586,7 @@ bool isFourInARow (vector<vector<string>> board, short COLS, string mark){
     int i = 0, j = c;
 
   // Backward slash diagonal scan
-    while ( (ROWS > i && i >= 0) && (COLS > j && j >= 0) ){// Makes sure index exists
+    while ( ROWS > i && i >= 0 && COLS > j && j >= 0 ){// Makes sure index exists
 
       if (board[i][j] == "[" + mark + "]")
         mark_counter++;
@@ -596,11 +594,12 @@ bool isFourInARow (vector<vector<string>> board, short COLS, string mark){
         mark_counter = 0;
 
       if (mark_counter >= 4){
+        
         // Highlights all the 4 marks in a row
         do board[i--][j--] = "[\x1b[7m" + mark + "]\x1b[27m"; 
         while(i >= 0 && board[i][j] == "[" + mark + "]");
         // Clear screen and display winner board
-        clrscr(); displayBoard(board, COLS);
+        clrscr(); displayBoard(board, COLS, false);
         return true; 
       }
       else
@@ -626,7 +625,7 @@ bool isFourInARow (vector<vector<string>> board, short COLS, string mark){
         while(i >= 0 && board[i][j] == "[" + mark + "]");
         
         // Clear screen and display winner board
-        clrscr(); displayBoard(board, COLS);
+        clrscr(); displayBoard(board, COLS, false);
         return true; 
       }
       else
@@ -657,7 +656,7 @@ from the rows on either end of the board instead of the top of the board */
         while(i >= 0 && board[i][j] == "[" + mark + "]");
         
         // Clear screen and display winner board
-        clrscr(); displayBoard(board, COLS);
+        clrscr(); displayBoard(board, COLS, false);
         return true; 
       }
       else
@@ -684,7 +683,7 @@ from the rows on either end of the board instead of the top of the board */
         while(i >= 0 && board[i][j] == "[" + mark + "]");
         
         // Clear screen and display winner board
-        clrscr(); displayBoard(board, COLS);
+        clrscr(); displayBoard(board, COLS, false);
         return true; 
       }
       else
@@ -717,32 +716,43 @@ void deleteRow (vector<vector<string>> &board , short COLS, int row){
   } 
 }
 
-void displayBoard(vector<vector<string>> board, short COLS){
+void displayBoard(vector<vector<string>> board, short COLS, bool AbilityModeON){
 
+  string color = "\u001b[38;5;21m"; // (BLUE)
+  
+  string boardFrame = color + "█\u001b[0m";
+  string LcornerFrame  = color + " ▟ \u001b[0m";
+  string RcornerFrame  = color + " ▙\u001b[0m";
+  string legFrame = color + "▟█▙\u001b[0m";
+  
   int ROWS = board.size();
-  cout << "▟ ";
 
-  // Displays numbers on top to identify columns
+  // Prints numbers on top to identify columns
+  cout << LcornerFrame; 
   for(int c = 0 ; c < COLS ; c++) //Iterates over each column
     cout << " " << c << " ";
+  cout << RcornerFrame << endl; 
   
-  cout << " ▙" << endl;
-
-  // NOTE!!!!: Make condition to only display row nums in ability
-  
-  // Displays game board
-  for(int r = 0; r < ROWS ; r++){ //Iterates over each row
-    cout << "█ ";
-    for(int c = 0 ; c < COLS ; c++) //Iterates over each column
-      cout << board[r][c]; // displays element
-    cout << " █";
-    cout << " " << r << endl;
+  // Prints game board
+  for(int r = 0; r < ROWS ; r++){ 
+    cout << " " << boardFrame << " "; // left board frame
+    
+    for(int c = 0 ; c < COLS ; c++)
+      cout << board[r][c]; 
+    
+    cout << " " << boardFrame; // right board frame
+    
+    if (AbilityModeON) // prints row numbers when playing in abilities mode
+      cout << " " << r << endl;
+    else
+      cout << endl;
   } 
-  cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n"; // Spacer
+
+  // Prints "legs" of board
+  cout << legFrame;
+  for(int c = 0 ; c < COLS ; c++)
+    cout << "\u001b[38;5;21m▔▔▔";
+  cout << legFrame;
+  
+  cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n";// Spacer
 }
-
-// inline void clrscr()
-// {cout << "\033c";}
-
-// inline void clrln()
-// {cout << "\x1B[1A\x1B[2K";}
