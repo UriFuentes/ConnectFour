@@ -1,2 +1,0 @@
-gracias por leerme
-

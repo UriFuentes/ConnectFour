@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include "mark.h"
-#include "sub.cpp"
+// #include "sub.cpp"
 using namespace std;
 
 // Main Functions
@@ -20,13 +20,9 @@ void highlightMark (vector<vector<string>>, int, int); // Highlights 4-in-a-row 
 void deleteColumn (vector<vector<string>> &, short, int); // Deletes a col in game board
 void deleteRow (vector<vector<string>> &, short, int); // Deletes a row in game board
 
-
 //Default Variables for player marks
 mark P1 = {"\u001b[31m", "O\x1b[0m"}; // RED "O"
 mark P2 = {"\u001b[33m", "O\x1b[0m"}; // YELLOW "O"
-
-string P1_mark = P1.color + P1.character;
-string P2_mark = P2.color + P2.character;
 
 int main(){
 
@@ -34,6 +30,7 @@ int main(){
   do
   {
     clrscr();
+
     // Output Game Title in BOLD
     cout << "\x1b[1m░▒▓█ C O N N E C T  4 █▓▒░\x1b[22m\n\n";
 
@@ -73,7 +70,7 @@ void OPTIONS_MENU(){
   do{
     clrscr();
     
-    if (P1_mark == P2_mark)
+    if (P1.mark == P2.mark)
       warning("Marks are identical!\n\n");
 
     int option;
@@ -94,7 +91,7 @@ void OPTIONS_MENU(){
       case 3: 
         clrscr(); 
 
-        if (P1_mark == P2_mark){
+        if (P1.mark == P2.mark){
           error("Marks cannot be identical. Please make a change.\n\n");
           cout << "(Press ENTER to return to OPTIONS menu)";
           cin.ignore(); cin.get();
@@ -140,11 +137,11 @@ void COLORS_MENU(){
 
   // Plug in input into ANSI Code, adding such to P1_color
   P1.color = "\u001b[3" + to_string(option) + "m";
-  P1_mark = P1.color + P1.character;
-
+  P1.mark = P1.color + P1.character;
+  
   // Deletes line and writes mark with selected color
   clrln(); 
-  cout << "Player 1 Selection: [" << P1_mark << "]\n";
+  cout << "Player 1 Selection: [" << P1.mark << "]\n";
 
   /////// PLAYER 2 SELECTION ///////
   do
@@ -159,11 +156,11 @@ void COLORS_MENU(){
 
   // Plug in input into ANSI Code, adding such to P2_color
   P2.color = "\u001b[3" + to_string(option) + "m";
-  P2_mark = P2.color + P2.character;
+  P2.mark = P2.color + P2.character;
 
   // Deletes line and writes mark with selected color
   clrln(); 
-  cout << "Player 2 Selection: [" << P2_mark << "]";
+  cout << "Player 2 Selection: [" << P2.mark << "]";
 
   // Stop Gap
   cout << "\n\n(Press ENTER to return to OPTIONS MENU)" << endl;
@@ -212,16 +209,15 @@ void CHARS_MENU(){
     case 8: P1.character = "✿\u001b[0m"; break; 
   }
 
-  P1_mark = P1.color + P1.character;
+  P1.mark = P1.color + P1.character;
   
   // Deletes line and writes mark
   clrln(); 
-  cout << "Player 1 Selection: [" << P1_mark << "]\n";
+  cout << "Player 1 Selection: [" << P1.mark << "]\n";
 
   /////// PLAYER 2 SELECTION ///////
   do
   {
-
     cout << "Player 2 Selection: "; 
     cin >> option;
 
@@ -242,11 +238,11 @@ void CHARS_MENU(){
     case 8: P2.character = "✿\u001b[0m"; break;
   }
 
-  P2_mark = P2.color + P2.character;
+  P2.mark = P2.color + P2.character;
   
   // Deletes line and writes mark
   clrln(); 
-  cout << "Player 2 Selection: [" << P2_mark << "]";
+  cout << "Player 2 Selection: [" << P2.mark << "]";
 
   // Stop Gap
   cout << "\n\n(Press ENTER to return to OPTIONS MENU)" << endl;
@@ -325,8 +321,8 @@ void RUN_GAME(bool isPractice){
         
       /* Sets both marks to "X", adds an additional ANSI code 
            to P2 so program can Differentiate whilst appearing the same */
-      P1 = {"", "X\x1b[0m"}; P1_mark = P1.color + P1.character;
-      P2 = {"", "X\x1b[0m\x1b[0m"}; P2_mark = P2.color + P2.character; 
+      P1 = {"", "X\x1b[0m"}; 
+      P2 = {"", "X\x1b[0m\x1b[0m"}; 
       break;
     
     case 3: // Abilities
@@ -349,7 +345,7 @@ void RUN_GAME(bool isPractice){
   bool no_winner = true; // Determines if the game has a winner or not
   int current_player = 1; // determines which player is playing
   int inputColumn; // specified column index by player
-  int inputRow; // specified column index by player (only used for ability gamemode)
+  int inputRow; // specified column index by player 
   short row = ROWS - 1 ; //bottom row index
 
   // Column and row delete abilities (these will determine the # of ability uses)
@@ -367,29 +363,29 @@ void RUN_GAME(bool isPractice){
     /* The following condition alternates between players each iteration.
        This is done so the same code doesn't have to be written twice.*/
     if (current_player == 1){
-      player_mark = P1_mark;
+      player_mark = P1.mark;
       colDel = &colDel_P1;
       rowDel = &rowDel_P1;
     }
     else{ 
-      player_mark = P2_mark;
+      player_mark = P2.mark;
       colDel = &colDel_P2;
       rowDel = &rowDel_P2;
     }
 
-    if (isFourInARow(board, COLS, player_mark))
-      no_winner = false;
-
-///// Ask for Player input /////
+    if (isFourInARow(board, COLS, player_mark)){
+      main();
+    }
 
   // NOTE !!!!!!: Talvez poner esto en otra funcion??? no se ve demasiado
 
     bool usedAbility = false; // Will prevent writing a mark if ability is used
     
-  // Ability Mode input
-    if (abilityMode){ // If ability mode is selected, change input prompts
+    // Ability Mode input
+    if (abilityMode){ 
       
-      do{
+      do
+      {
         cout << "Player " << current_player << " (" << player_mark 
             << ") , choose an action: \n\n";
 
@@ -397,20 +393,19 @@ void RUN_GAME(bool isPractice){
              << "\t2. Delete Column (" << *colDel << " Remaining)\n"
              << "\t3. Delete Row    (" << *rowDel << " Remaining)\n\n\n";
 
-        do{
+        do
+        {
           clrln();
           cout << "Selection: ";
           cin >> option;
 
           // Input validation if abilities are used up
           if(*colDel == 0 && option == 2 || *rowDel == 0 && option == 3)
-            option = -1;
-            
+            option = -1;   
         } 
         while (option > 3 || option < 1);
 
         switch(option){
-
         // Place Mark in Column
           case 1: 
             cout << "Choose a column: "; 
@@ -427,7 +422,6 @@ void RUN_GAME(bool isPractice){
             cin >> inputColumn;
             
             deleteColumn(board, COLS, inputColumn);
-            
             displayBoard(board, COLS, abilityMode);
             
             if (isFourInARow(board, COLS, player_mark))
@@ -443,18 +437,14 @@ void RUN_GAME(bool isPractice){
             cin >> inputRow;
             
             deleteRow(board, COLS, inputRow);
-              
             displayBoard(board, COLS, abilityMode);
             break;
         }
-        
         clrln();
       }
       while (inputColumn < 0 || inputColumn >= COLS);      
     }
-
-
-  // Standard Inputs
+    // Classic mode and Blind Mode Input
     else{
       do{
       cout << "Player " << current_player << " (" << player_mark 
@@ -466,15 +456,13 @@ void RUN_GAME(bool isPractice){
     }
     
     // NOTE!!!!!!!!!!!!: create conditition if board is full
-
-///// Check input and write mark /////
     
     //If element isnt empty at highest row, then the column must be full
     if (board[0][inputColumn] != "[ ]")
     {
       do{
       cout << "Selected column is full, choose another: ";
-      cin >> inputColumn; 
+      cin >> inputColumn;
       }
       while(board[0][inputColumn] != "[ ]");
     }
@@ -484,14 +472,12 @@ void RUN_GAME(bool isPractice){
     if (board[row][inputColumn] != "[ ]")
       do row--; while(board[row][inputColumn] != "[ ]");
     
-    // If element at index is empty and ability was NOt used, write player mark
+    // If element at index is empty and ability was NOT used, write mark
     if (board[row][inputColumn] == "[ ]" && !usedAbility)
       board[row][inputColumn] = "[" + player_mark + "]";
 
     // Clear old board and display Modified board
     clrscr(); displayBoard(board, COLS, abilityMode);
-
-///// Verify if 4-in-a-row /////
 
     if (isFourInARow(board, COLS, player_mark)){
       cout << "\nPlayer " << current_player << " WINS!";
@@ -500,7 +486,7 @@ void RUN_GAME(bool isPractice){
     
     row = ROWS - 1; // Resets row index
     
-///// End of player turn, switch to other player /////
+    // End of player turn, switch to other player 
      if (current_player == 1)
        current_player = 2; 
      else 
@@ -709,17 +695,14 @@ void deleteRow (vector<vector<string>> &board , short COLS, int row){
   for (int i = 0; i < COLS ; i++)
     board[0][i] = "[ ]"; // Empties top row
   
-  for(int i = row; i > 0; i--){
-    for(int j = 0; j < COLS; j++) {
+  for(int i = row; i > 0; i--)
+    for(int j = 0; j < COLS; j++)
       board[i][j] = board[i - 1][j]; // Shift elements above down
-    }
-  } 
 }
 
 void displayBoard(vector<vector<string>> board, short COLS, bool AbilityModeON){
 
   string color = "\u001b[38;5;21m"; // (BLUE)
-  
   string boardFrame = color + "█\u001b[0m";
   string LcornerFrame  = color + " ▟ \u001b[0m";
   string RcornerFrame  = color + " ▙\u001b[0m";
