@@ -6,8 +6,8 @@
 using namespace std;
 
 // Main Functions
-void RUN_GAME(bool); // Game Function 
-void OPTIONS_MENU(); // Game Options 
+int RUN_GAME(bool); // Game Function 
+int OPTIONS_MENU(); // Game Options 
 
 // Options Functions
 void COLORS_MENU(); // Allows change in color 
@@ -65,7 +65,7 @@ int main(){
 
 
 
-void OPTIONS_MENU(){
+int OPTIONS_MENU(){
 
   do{
     clrscr();
@@ -97,13 +97,12 @@ void OPTIONS_MENU(){
           cin.ignore(); cin.get();
         }
         else
-          main(); 
+          return  0; 
         
         break;
     }
   }
   while(1);
-
 }
 
 
@@ -252,11 +251,11 @@ void CHARS_MENU(){
 
 
 
-void RUN_GAME(bool isPractice){
+int RUN_GAME(bool isPractice){
   
   //Declare Variables
   short ROWS, COLS; // Rows and columns for the board matrix
-  bool abilityMode = false;
+  bool abilityModeON = false;
   
   //OUTPUT RULES
   cout << "\x1b[1mRULES\x1b[22m\n\n"
@@ -326,7 +325,7 @@ void RUN_GAME(bool isPractice){
       break;
     
     case 3: // Abilities
-      abilityMode = true; 
+      abilityModeON = true; 
       break;
   }
 
@@ -338,11 +337,11 @@ void RUN_GAME(bool isPractice){
     for (short c = 0; c < COLS; c++)
       board[r] = vector<string>(COLS, "[ ]");
 
-  displayBoard(board, COLS, abilityMode);
+  displayBoard(board, COLS, abilityModeON);
   
   /// Declaration of game variables ///
 
-  bool no_winner = true; // Determines if the game has a winner or not
+  bool isWinner = false; // Determines if the game has a winner or not
   int current_player = 1; // determines which player is playing
   int inputColumn; // specified column index by player
   int inputRow; // specified column index by player 
@@ -359,7 +358,7 @@ void RUN_GAME(bool isPractice){
 
   
 ///// GAME BEGINS HERE /////
-  while (no_winner){
+  while (!isWinner){
     /* The following condition alternates between players each iteration.
        This is done so the same code doesn't have to be written twice.*/
     if (current_player == 1){
@@ -374,7 +373,10 @@ void RUN_GAME(bool isPractice){
     }
 
     if (isFourInARow(board, COLS, player_mark)){
-      main();
+      cout << "\nPlayer " << current_player << " WINS!";
+      cout << "\n\n(Press ENTER to return to MAIN MENU)" << endl;
+      cin.ignore(); cin.get();
+      return 0;
     }
 
   // NOTE !!!!!!: Talvez poner esto en otra funcion??? no se ve demasiado
@@ -382,7 +384,7 @@ void RUN_GAME(bool isPractice){
     bool usedAbility = false; // Will prevent writing a mark if ability is used
     
     // Ability Mode input
-    if (abilityMode){ 
+    if (abilityModeON && !isWinner){ 
       
       do
       {
@@ -422,10 +424,10 @@ void RUN_GAME(bool isPractice){
             cin >> inputColumn;
             
             deleteColumn(board, COLS, inputColumn);
-            displayBoard(board, COLS, abilityMode);
+            displayBoard(board, COLS, abilityModeON);
             
             if (isFourInARow(board, COLS, player_mark))
-              no_winner = false;
+              isWinner = true;
             break;
           
         // Delete Row
@@ -437,7 +439,7 @@ void RUN_GAME(bool isPractice){
             cin >> inputRow;
             
             deleteRow(board, COLS, inputRow);
-            displayBoard(board, COLS, abilityMode);
+            displayBoard(board, COLS, abilityModeON);
             break;
         }
         clrln();
@@ -445,7 +447,8 @@ void RUN_GAME(bool isPractice){
       while (inputColumn < 0 || inputColumn >= COLS);      
     }
     // Classic mode and Blind Mode Input
-    else{
+    
+    if (!abilityModeON && !isWinner){
       do{
       cout << "Player " << current_player << " (" << player_mark 
           << ") enter a column #: ";
@@ -458,7 +461,7 @@ void RUN_GAME(bool isPractice){
     // NOTE!!!!!!!!!!!!: create conditition if board is full
     
     //If element isnt empty at highest row, then the column must be full
-    if (board[0][inputColumn] != "[ ]")
+    if (board[0][inputColumn] != "[ ]" && !isWinner)
     {
       do{
       cout << "Selected column is full, choose another: ";
@@ -469,19 +472,19 @@ void RUN_GAME(bool isPractice){
 
     /* If element at index is occupied, change row to one level higher
        until empty element is found */
-    if (board[row][inputColumn] != "[ ]")
+    if (board[row][inputColumn] != "[ ]" && !isWinner)
       do row--; while(board[row][inputColumn] != "[ ]");
     
     // If element at index is empty and ability was NOT used, write mark
-    if (board[row][inputColumn] == "[ ]" && !usedAbility)
+    if (board[row][inputColumn] == "[ ]" && !usedAbility && !isWinner)
       board[row][inputColumn] = "[" + player_mark + "]";
 
     // Clear old board and display Modified board
-    clrscr(); displayBoard(board, COLS, abilityMode);
+    clrscr(); displayBoard(board, COLS, abilityModeON);
 
-    if (isFourInARow(board, COLS, player_mark)){
+    if (!isWinner && isFourInARow(board, COLS, player_mark)){
       cout << "\nPlayer " << current_player << " WINS!";
-      no_winner = false;
+      isWinner = true;
     }
     
     row = ROWS - 1; // Resets row index
@@ -493,10 +496,9 @@ void RUN_GAME(bool isPractice){
        current_player = 1; 
   }
 
-  // Display options after a player wins
   cout << "\n\n(Press ENTER to return to MAIN MENU)" << endl;
   cin.ignore(); cin.get(); 
-  
+  return 0;
 }
   
 
