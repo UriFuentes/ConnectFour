@@ -6,12 +6,12 @@
 using namespace std;
 
 // Main Functions
-int RUN_GAME(bool); // Game Function 
-int OPTIONS_MENU(); // Game Options 
+int RUN_GAME(bool, mark &, mark &); // Game Function 
+int OPTIONS_MENU(mark &, mark &); // Game Options 
 
 // Options Functions
-void COLORS_MENU(); // Allows change in color 
-void CHARS_MENU(); // Allows change in character 
+void COLORS_MENU(mark &, mark &); // Allows change in color 
+void CHARS_MENU(mark &, mark &); // Allows change in character 
 
 // Board functions
 void displayBoard (vector<vector<string>>, short, bool); // Displays game board
@@ -20,11 +20,15 @@ void highlightMark (vector<vector<string>>, int, int); // Highlights 4-in-a-row 
 void deleteColumn (vector<vector<string>> &, short, int); // Deletes a col in game board
 void deleteRow (vector<vector<string>> &, short, int); // Deletes a row in game board
 
-//Default Variables for player marks
-mark P1 = {"\u001b[31m", "O\x1b[0m"}; // RED "O"
-mark P2 = {"\u001b[33m", "O\x1b[0m"}; // YELLOW "O"
+// //Default Variables for player marks
+// mark P1 = {"\u001b[31m", "O\x1b[0m"}; // RED "O"
+// mark P2 = {"\u001b[33m", "O\x1b[0m"}; // YELLOW "O"
 
 int main(){
+
+  //Default Variables for player marks
+  mark P1 = {"\u001b[31m", "O\x1b[0m"}; // RED "O"
+  mark P2 = {"\u001b[33m", "O\x1b[0m"}; // YELLOW "O"
 
   short option;
   do
@@ -49,11 +53,11 @@ int main(){
     switch(option){
 
       // NOT Practice game
-      case 1: clrscr(); RUN_GAME(false); break;
+      case 1: clrscr(); RUN_GAME(false, P1, P2); break;
       // Practice game
-      case 2: clrscr(); RUN_GAME(true); break; 
+      case 2: clrscr(); RUN_GAME(true, P1, P2); break; 
 
-      case 3: clrscr(); OPTIONS_MENU(); break;
+      case 3: clrscr(); OPTIONS_MENU(P1, P2); break;
 
       case 4: return 0; break;
     } 
@@ -65,7 +69,7 @@ int main(){
 
 
 
-int OPTIONS_MENU(){
+int OPTIONS_MENU(mark &P1, mark &P2){
 
   do{
     clrscr();
@@ -84,9 +88,9 @@ int OPTIONS_MENU(){
     cin >> option;
 
     switch(option){
-      case 1: clrscr(); COLORS_MENU(); break;
+      case 1: clrscr(); COLORS_MENU(P1, P2); break;
       
-      case 2: clrscr(); CHARS_MENU(); break;
+      case 2: clrscr(); CHARS_MENU(P1, P2); break;
   
       case 3: 
         clrscr(); 
@@ -107,7 +111,7 @@ int OPTIONS_MENU(){
 
 
 
-void COLORS_MENU(){
+void COLORS_MENU(mark &P1, mark &P2){
     
   // Display List of available colors in with ANSI codes
 
@@ -168,7 +172,7 @@ void COLORS_MENU(){
 
 
 
-void CHARS_MENU(){
+void CHARS_MENU(mark &P1, mark &P2){
 
   cout << "Available Icons:\n\n";
 
@@ -251,7 +255,7 @@ void CHARS_MENU(){
 
 
 
-int RUN_GAME(bool isPractice){
+int RUN_GAME(bool isPractice, mark &P1, mark &P2){
   
   //Declare Variables
   short ROWS, COLS; // Rows and columns for the board matrix
