@@ -1,10 +1,16 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
-#include <string>
+#include <iostream>
+#include "mark.h"
 using namespace std;
 
-int OPTIONS_MENU(mark, mark, string, string);
-void COLORS_MENU(); // Allows change in color 
-void CHARS_MENU(); // Allows change in character 
+int OPTIONS_MENU(mark &, mark &); // Game Options 
+void COLORS_MENU(mark &, mark &); // Allows change in color 
+void CHARS_MENU(mark &, mark &); // Allows change in character 
+
+
+
+
+
 
 #endif

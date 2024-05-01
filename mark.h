@@ -22,4 +22,5 @@ inline void warning(string msg) // displays warning message
 inline void error(string msg) // displays error message
 {cout << "\u001b[41mERROR!\x1b[0m: " << msg;}
 
+
 #endif
