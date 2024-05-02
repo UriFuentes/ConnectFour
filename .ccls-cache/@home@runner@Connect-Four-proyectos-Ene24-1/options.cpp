@@ -11,7 +11,7 @@ int OPTIONS_MENU(mark &P1, mark &P2){
     if (P1.mark == P2.mark)
       warning("Marks are identical!\n\n");
 
-    int option;
+    char option;
     cout << "\x1b[1mCustomization Options\x1b[22m\n\n";
 
     cout << "\t1. Colors\n"
@@ -22,11 +22,11 @@ int OPTIONS_MENU(mark &P1, mark &P2){
     cin >> option;
 
     switch(option){
-      case 1: clrscr(); COLORS_MENU(P1, P2); break;
+      case 49: clrscr(); COLORS_MENU(P1, P2); break;
 
-      case 2: clrscr(); CHARS_MENU(P1, P2); break;
+      case 50: clrscr(); CHARS_MENU(P1, P2); break;
 
-      case 3: 
+      case 51: 
         clrscr(); 
 
         if (P1.mark == P2.mark){
@@ -59,18 +59,17 @@ void COLORS_MENU(mark &P1, mark &P2){
        << "\t7. White (Default)\n"
        << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 
-  int option;
-
+  char option;
   /////// PLAYER 1 SELECTION ///////
   do
   { 
     cout << "Player 1 Selection: "; 
     cin >> option;
 
-    if(option > 7 || option < 1)
+    if(option > 55 || option < 49)
       clrln();
   }
-  while(option > 7 || option < 1);
+  while(option > 55 || option < 49);
 
   // Plug in input into ANSI Code, adding such to P1_color
   P1.color = "\u001b[3" + to_string(option) + "m";
@@ -86,10 +85,10 @@ void COLORS_MENU(mark &P1, mark &P2){
     cout << "Player 2 Selection: "; 
     cin >> option;
 
-    if(option > 7 || option < 1)
+    if(option > 55 || option < 49)
       clrln();
   }
-  while(option > 7 || option < 1);
+  while(option > 55 || option < 49);
 
   // Plug in input into ANSI Code, adding such to P2_color
   P2.color = "\u001b[3" + to_string(option) + "m";
@@ -116,23 +115,22 @@ void CHARS_MENU(mark &P1, mark &P2){
        << "\t4. ♡\n"
        << "\t5. ♫\n"
        << "\t6. ☽\n"
-       << "\t7. ☢\n"
-       << "\t8. ✿\n"
-       << "\t9. A-Z Characters [Not Coded]\n"
-       << "\t10. Paste your own [Not Coded]\n"
+       << "\t7. ✿\n"
+       << "\t8. A-Z Characters [Not Coded]\n"
+       << "\t9. Paste your own [Not Coded]\n"
        << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 
-  int option;
+  char option;
   /////// PLAYER 1 SELECTION ///////
   do
   {
     cout << "Player 1 Selection: "; 
     cin >> option;
 
-    if(option > 10 || option < 1)
+    if(option > 57 || option < 49)
       clrln();
   }
-  while(option > 10 || option < 1);
+  while(option > 57 || option < 49);
 
   // Switch for Predefined icons
   switch(option){
@@ -142,8 +140,7 @@ void CHARS_MENU(mark &P1, mark &P2){
     case 4: P1.character = "♡\u001b[0m"; break;
     case 5: P1.character = "♫\u001b[0m"; break;
     case 6: P1.character = "☽\u001b[0m"; break;
-    case 7: P1.character = "☢\u001b[0m"; break;
-    case 8: P1.character = "✿\u001b[0m"; break; 
+    case 7: P1.character = "✿\u001b[0m"; break; 
   }
 
   P1.mark = P1.color + P1.character;
@@ -158,10 +155,10 @@ void CHARS_MENU(mark &P1, mark &P2){
     cout << "Player 2 Selection: "; 
     cin >> option;
 
-    if(option > 10 || option < 1)
+    if(option > 57 || option < 49)
       clrln();
   }
-  while(option > 10 || option < 1);
+  while(option > 57 || option < 49);
 
   // Switch for Predefined icons
   switch(option){

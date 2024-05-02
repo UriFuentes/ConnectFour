@@ -7,47 +7,45 @@
 #include "4InARowScan.h"
 using namespace std;
 
-
 int main(){
 
   //Default Variables for player marks
   mark P1 = {"\u001b[31m", "O\x1b[0m"}; // RED "O"
   mark P2 = {"\u001b[33m", "O\x1b[0m"}; // YELLOW "O"
 
-  short option;
+  char option;
   do
   {
     clrscr();
 
     // Output Game Title in BOLD
-    cout << "\x1b[1m░▒▓█ C O N N E C T  4 █▓▒░\x1b[22m\n\n";
+    cout << " ██████╗ ██████╗ ███╗   ██╗███╗   ██╗███████╗ ██████╗████████╗    ██╗  ██╗" << endl <<
+      "██╔════╝██╔═══██╗████╗  ██║████╗  ██║██╔════╝██╔════╝╚══██╔══╝    ██║  ██║" << endl <<
+      "██║     ██║   ██║██╔██╗ ██║██╔██╗ ██║█████╗  ██║        ██║       ███████║" << endl <<
+      "██║     ██║   ██║██║╚██╗██║██║╚██╗██║██╔══╝  ██║        ██║       ╚════██║" << endl <<
+      "╚██████╗╚██████╔╝██║ ╚████║██║ ╚████║███████╗╚██████╗   ██║            ██║" << endl <<
+      " ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═╝            ╚═╝" << endl << endl;
 
-    cout << "\t1. Play ♟︎\n"
-         << "\t2. Practice\n"
-         << "\t3. Options ⚒︎\n"
-         << "\t4. Exit\n";
+    cout << "\t\t\t\t\t1. Play ♟︎\n"
+         << "\t\t\t\t\t2. Practice\n"
+         << "\t\t\t\t\t3. Options ⚒︎\n"
+         << "\t\t\t\t\t4. Exit\n";
 
-    cout << "\nSelection: ";
+    cout << "\n\t\t\tSelection: ";
     cin >> option;
 
-    // input validation
-    if (option < 1 || option > 4)
-      cout << "ERROR, please enter number 1-4\n";
-
-    switch(option){
+    switch(option){ // Cases are in decimal value
 
       // NOT Practice game
-      case 1: clrscr(); RUN_GAME(false, P1, P2); break;
+      case 49: clrscr(); RUN_GAME(false, P1, P2); break;
       // Practice game
-      case 2: clrscr(); RUN_GAME(true, P1, P2); break; 
+      case 50: clrscr(); RUN_GAME(true, P1, P2); break; 
 
-      case 3: clrscr(); OPTIONS_MENU(P1, P2); break;
+      case 51: clrscr(); OPTIONS_MENU(P1, P2); break;
 
-      case 4: return 0; break;
+      case 52: return 0; break;
     } 
   }
   while(1);
-
-
 }
 

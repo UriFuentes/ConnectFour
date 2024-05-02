@@ -4,6 +4,6 @@
 #include <string>
 using namespace std;
 
-bool isFourInARow (vector<vector<string>> , short, string);
+bool isFourInARow (vector<vector<string>> &, short, string);
 
 #endif

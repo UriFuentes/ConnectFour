@@ -25,9 +25,6 @@ bool isFourInARow (vector<vector<string>> &board, short COLS, string mark){
           do board[c][r--] = "[\x1b[7m" + mark + "]\x1b[27m"; 
           while(board[c][r] == "[" + mark + "]");
 
-          // Clear screen and display winner board
-          // clrscr(); displayBoard(board, COLS, false);
-
         return true; // 4 in a row = true
         }
       }
@@ -53,9 +50,6 @@ bool isFourInARow (vector<vector<string>> &board, short COLS, string mark){
           // Highlights all the 4 marks in a row by going backwards in ROWS index
           do board[r--][c] = "[\x1b[7m" + mark + "]\x1b[27m"; 
           while(r >= 0 && board[r][c] == "[" + mark + "]");
-
-          // Clear screen and display winner board
-          // clrscr(); displayBoard(board, COLS, false);
 
           return true; 
         }
@@ -86,8 +80,7 @@ bool isFourInARow (vector<vector<string>> &board, short COLS, string mark){
         // Highlights all the 4 marks in a row
         do board[i--][j--] = "[\x1b[7m" + mark + "]\x1b[27m"; 
         while(i >= 0 && board[i][j] == "[" + mark + "]");
-        // Clear screen and display winner board
-        // clrscr(); displayBoard(board, COLS, false);
+        
         return true; 
       }
       else
@@ -112,8 +105,6 @@ bool isFourInARow (vector<vector<string>> &board, short COLS, string mark){
         do board[i--][j++] = "[\x1b[7m" + mark + "]\x1b[27m"; 
         while(i >= 0 && board[i][j] == "[" + mark + "]");
 
-        // Clear screen and display winner board
-        // clrscr(); displayBoard(board, COLS, false);
         return true; 
       }
       else
@@ -143,8 +134,6 @@ from the rows on either end of the board instead of the top of the board */
         do board[i--][j--] = "[\x1b[7m" + mark + "]\x1b[27m"; 
         while(i >= 0 && board[i][j] == "[" + mark + "]");
 
-        // Clear screen and display winner board
-        // clrscr(); displayBoard(board, COLS, false);
         return true; 
       }
       else
@@ -170,8 +159,6 @@ from the rows on either end of the board instead of the top of the board */
         do board[i--][j++] = "[\x1b[7m" + mark + "]\x1b[27m"; 
         while(i >= 0 && board[i][j] == "[" + mark + "]");
 
-        // Clear screen and display winner board
-        // clrscr(); displayBoard(board, COLS, false);
         return true; 
       }
       else

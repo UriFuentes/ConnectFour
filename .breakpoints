@@ -1,23 +1,51 @@
 {
   "files": {
+    "game.cpp": [
+      {
+        "id": "61d37e8c-1b5e-49ec-8597-73d4fbf0e188",
+        "line": 195,
+        "version": 247,
+        "index": 5239
+      },
+      {
+        "id": "c38a56e2-c834-4316-8720-7f6417702e49",
+        "line": 274,
+        "version": 247,
+        "index": 7358
+      }
+    ],
     "main.cpp": [
       {
         "id": "2e355d89-dffc-4450-be68-480ee300689a",
-        "line": 335,
-        "version": 31059,
-        "index": 7850
+        "line": 47,
+        "version": 31452,
+        "index": 967
       },
       {
         "id": "61c426b0-a021-43f7-851d-55cd5526d783",
-        "line": 382,
-        "version": 31059,
-        "index": 9469
+        "line": 47,
+        "version": 31452,
+        "index": 967
       },
       {
         "id": "57884339-487b-4ce6-8af6-461e04d785b6",
-        "line": 460,
-        "version": 31059,
-        "index": 11681
+        "line": 47,
+        "version": 31452,
+        "index": 967
+      }
+    ],
+    "options.cpp": [
+      {
+        "id": "df73ac99-a18e-4791-8b78-a38aa90ab17c",
+        "line": 65,
+        "version": 243,
+        "index": 1425
+      },
+      {
+        "id": "782ee3b4-7952-41dc-bf02-fe23b8f9b2d6",
+        "line": 84,
+        "version": 243,
+        "index": 1887
       }
     ]
   }

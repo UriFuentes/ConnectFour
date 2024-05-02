@@ -63,7 +63,7 @@ void displayBoard(vector<vector<string>> board, short COLS, bool AbilityModeON){
   cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n";// Spacer
 }
 
-int RUN_GAME(bool isPractice, mark &P1, mark &P2){
+int RUN_GAME(bool isPractice, mark P1, mark P2){
 
   //Declare Variables
   short ROWS, COLS; // Rows and columns for the board matrix
@@ -81,7 +81,7 @@ int RUN_GAME(bool isPractice, mark &P1, mark &P2){
   clrscr();
 
 //Display Board Size Options
-  short option;
+  char option;
   do 
   {
     clrscr();
@@ -93,18 +93,18 @@ int RUN_GAME(bool isPractice, mark &P1, mark &P2){
     cout << "Selection: ";
     cin >> option;
 
-    if(option < 1 || option > 3)
+    if(option < 49 || option > 51)
       clrln();
 
   }
-  while(option < 1 || option > 3);
+  while(option < 49 || option > 51);
 
   // Switch for pre-defined options
   switch(option){
 
-    case 1: COLS = 7 , ROWS = 6; break;
-    case 2: COLS = 9 , ROWS = 8; break;
-    case 3: COLS = 11, ROWS = 9; break; 
+    case 49: COLS = 7 , ROWS = 6; break;
+    case 50: COLS = 9 , ROWS = 8; break;
+    case 51: COLS = 11, ROWS = 9; break; 
   }
 
 //Display Game Mode Options
@@ -119,16 +119,16 @@ int RUN_GAME(bool isPractice, mark &P1, mark &P2){
     cout << "Selection: ";
     cin >> option;
 
-    if(option < 1 || option > 3)
+    if(option < 49 || option > 51)
       clrln();
 
   }
-  while(option < 1 || option > 3);
+  while(option < 49 || option > 51);
 
   // Switch for pre-defined options
   switch(option){
 
-    case 2: // Blinded
+    case 50: // Blinded
 
       /* Sets both marks to "X", adds an additional ANSI code 
            to P2 so program can Differentiate whilst appearing the same */
@@ -136,7 +136,7 @@ int RUN_GAME(bool isPractice, mark &P1, mark &P2){
       P2 = {"", "X\x1b[0m\x1b[0m"}; 
       break;
 
-    case 3: // Abilities
+    case 51: // Abilities
       abilityModeON = true; 
       break;
   }
@@ -166,7 +166,7 @@ int RUN_GAME(bool isPractice, mark &P1, mark &P2){
   // Alternating Variables (these alternate with each iteration of while cycle)
   string player_mark; // writes the designated players mark
   int *colDel = &colDel_P1; // # of ability uses for designated player 
-  int *rowDel = &rowDel_P2; // # of ability uses for designated player 
+  int *rowDel = &rowDel_P1; // # of ability uses for designated player 
 
 
 ///// GAME BEGINS HERE /////
@@ -215,10 +215,10 @@ int RUN_GAME(bool isPractice, mark &P1, mark &P2){
           cin >> option;
 
           // Input validation if abilities are used up
-          if(*colDel == 0 && option == 2 || *rowDel == 0 && option == 3)
+          if(*colDel == 0 && option == 50 || *rowDel == 0 && option == 51)
             option = -1;   
         } 
-        while (option > 3 || option < 1);
+        while (option > 51 || option < 49);
 
         switch(option){
         // Place Mark in Column
@@ -298,7 +298,9 @@ int RUN_GAME(bool isPractice, mark &P1, mark &P2){
     if (!isWinner && isFourInARow(board, COLS, player_mark)){
       clrscr(); displayBoard(board, COLS, false);
       cout << "\nPlayer " << current_player << " WINS!";
-      isWinner = true;
+      cout << "\n\n(Press ENTER to return to MAIN MENU)" << endl;
+      cin.ignore(); cin.get();
+      return 0;
     }
 
     row = ROWS - 1; // Resets row index

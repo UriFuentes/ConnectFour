@@ -6,7 +6,7 @@
 #include "mark.h"
 using namespace std;
 
-int RUN_GAME(bool, mark &, mark &);
+int RUN_GAME(bool, mark, mark);
 
 bool isFourInARow (vector<vector<string>>, short, string);
 void displayBoard (vector<vector<string>>, short, bool); 
