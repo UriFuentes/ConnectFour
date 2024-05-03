@@ -1,7 +1,7 @@
 #include <vector>
 #include <string>
-#include "mark.h"
-#include "4InARowScan.h"
+#include "headers/mark.h"
+#include "headers/4InARowScan.h"
 using namespace std;
 
 bool isFourInARow (vector<vector<string>> &board, short COLS, string mark){

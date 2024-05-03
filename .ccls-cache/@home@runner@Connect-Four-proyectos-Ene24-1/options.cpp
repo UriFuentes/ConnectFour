@@ -1,6 +1,6 @@
 #include <iostream>
-#include "options.h"
-#include "mark.h"
+#include "headers/options.h"
+#include "headers/mark.h"
 using namespace std;
 
 int OPTIONS_MENU(mark &P1, mark &P2){
@@ -134,13 +134,13 @@ void CHARS_MENU(mark &P1, mark &P2){
 
   // Switch for Predefined icons
   switch(option){
-    case 1: P1.character = "★\u001b[0m"; break;
-    case 2: P1.character = "❆\u001b[0m"; break;
-    case 3: P1.character = "✦\u001b[0m"; break;
-    case 4: P1.character = "♡\u001b[0m"; break;
-    case 5: P1.character = "♫\u001b[0m"; break;
-    case 6: P1.character = "☽\u001b[0m"; break;
-    case 7: P1.character = "✿\u001b[0m"; break; 
+    case 49: P1.character = "★\u001b[0m"; break;
+    case 50: P1.character = "❆\u001b[0m"; break;
+    case 51: P1.character = "✦\u001b[0m"; break;
+    case 52: P1.character = "♡\u001b[0m"; break;
+    case 53: P1.character = "♫\u001b[0m"; break;
+    case 54: P1.character = "☽\u001b[0m"; break;
+    case 55: P1.character = "✿\u001b[0m"; break; 
   }
 
   P1.mark = P1.color + P1.character;
@@ -162,14 +162,13 @@ void CHARS_MENU(mark &P1, mark &P2){
 
   // Switch for Predefined icons
   switch(option){
-    case 1: P2.character = "★\u001b[0m"; break;
-    case 2: P2.character = "❆\u001b[0m"; break;
-    case 3: P2.character = "✦\u001b[0m"; break;
-    case 4: P2.character = "♡\u001b[0m"; break;
-    case 5: P2.character = "♫\u001b[0m"; break;
-    case 6: P2.character = "☽\u001b[0m"; break;
-    case 7: P2.character = "☢\u001b[0m"; break;
-    case 8: P2.character = "✿\u001b[0m"; break;
+    case 49: P2.character = "★\u001b[0m"; break;
+    case 50: P2.character = "❆\u001b[0m"; break;
+    case 51: P2.character = "✦\u001b[0m"; break;
+    case 52: P2.character = "♡\u001b[0m"; break;
+    case 53: P2.character = "♫\u001b[0m"; break;
+    case 54: P2.character = "☽\u001b[0m"; break;
+    case 55: P2.character = "✿\u001b[0m"; break;
   }
 
   P2.mark = P2.color + P2.character;

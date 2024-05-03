@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "mark.h"
-#include "4InARowScan.h"
+#include "headers/mark.h"
+#include "headers/4InARowScan.h"
 using namespace std;
 
 void deleteColumn (vector<vector<string>> &board, short COLS, int column){
@@ -25,6 +25,15 @@ void deleteRow (vector<vector<string>> &board , short COLS, int row){
 
 void displayBoard(vector<vector<string>> board, short COLS, bool AbilityModeON){
 
+  cout << " ██████╗ ██████╗ ███╗   ██╗███╗   ██╗███████╗ ██████╗████████╗    ██╗  ██╗" << endl <<
+    "██╔════╝██╔═══██╗████╗  ██║████╗  ██║██╔════╝██╔════╝╚══██╔══╝    ██║  ██║" << endl <<
+    "██║     ██║   ██║██╔██╗ ██║██╔██╗ ██║█████╗  ██║        ██║       ███████║" << endl <<
+    "██║     ██║   ██║██║╚██╗██║██║╚██╗██║██╔══╝  ██║        ██║       ╚════██║" << endl <<
+    "╚██████╗╚██████╔╝██║ ╚████║██║ ╚████║███████╗╚██████╗   ██║            ██║" << endl <<
+    " ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═╝            ╚═╝" << endl << endl;
+
+
+  
   string color = "\u001b[38;5;21m"; // (BLUE)
   string boardFrame = color + "█\u001b[0m";
   string LcornerFrame  = color + " ▟ \u001b[0m";
@@ -51,7 +60,7 @@ void displayBoard(vector<vector<string>> board, short COLS, bool AbilityModeON){
     if (AbilityModeON) // prints row numbers when playing in abilities mode
       cout << " " << r << endl;
     else
-      cout << endl;
+      cout << endl; 
   } 
 
   // Prints "legs" of board
@@ -272,6 +281,8 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
     }
 
     // NOTE!!!!!!!!!!!!: create conditition if board is full
+
+    // NOTE!!!!!!!!!!!!: create function to check if board is full. 
 
     //If element isnt empty at highest row, then the column must be full
     if (board[0][inputColumn] != "[ ]" && !isWinner)

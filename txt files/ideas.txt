@@ -6,3 +6,9 @@ History of Wins
 be planes where victory boards are saved.
 
 draw mode 
+
+import time library
+
+make like a console 
+
+
