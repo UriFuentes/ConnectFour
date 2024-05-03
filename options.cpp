@@ -72,7 +72,7 @@ void COLORS_MENU(mark &P1, mark &P2){
   while(option > 55 || option < 49);
 
   // Plug in input into ANSI Code, adding such to P1_color
-  P1.color = "\u001b[3" + to_string(option) + "m";
+  P1.color = "\u001b[3" + to_string(option - 48) + "m";
   P1.mark = P1.color + P1.character;
 
   // Deletes line and writes mark with selected color
@@ -91,7 +91,7 @@ void COLORS_MENU(mark &P1, mark &P2){
   while(option > 55 || option < 49);
 
   // Plug in input into ANSI Code, adding such to P2_color
-  P2.color = "\u001b[3" + to_string(option) + "m";
+  P2.color = "\u001b[3" + to_string(option - 48) + "m";
   P2.mark = P2.color + P2.character;
 
   // Deletes line and writes mark with selected color
