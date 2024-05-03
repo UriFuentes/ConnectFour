@@ -1,7 +1,8 @@
 #ifndef MARK_H
 #define MARK_H
-#include <string>
 #include <iostream>
+#include <string>
+
 using namespace std;
 
 struct mark{
@@ -22,5 +23,10 @@ inline void warning(string msg) // displays warning message
 inline void error(string msg) // displays error message
 {cout << "\u001b[41mERROR!\x1b[0m: " << msg;}
 
+inline void saveCursor() // saves cursor position
+{cout << "\x1b[s";}
+
+inline void returnCursor() // returns to last saved cursor position
+{cout << "\x1b[u";}
 
 #endif

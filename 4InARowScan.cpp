@@ -1,5 +1,5 @@
-#include <vector>
 #include <string>
+#include <vector>
 #include "headers/mark.h"
 #include "headers/4InARowScan.h"
 using namespace std;

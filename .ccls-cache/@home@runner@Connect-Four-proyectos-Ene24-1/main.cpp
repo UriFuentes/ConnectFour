@@ -9,7 +9,7 @@
 using namespace std;
 
 int main(){
-
+  
   //Default Variables for player marks
   mark P1 = {"\u001b[31m", "O\x1b[0m"}; // RED "O"
   mark P2 = {"\u001b[33m", "O\x1b[0m"}; // YELLOW "O"
