@@ -1,57 +1,65 @@
 {
   "files": {
+    "background.cpp": [
+      {
+        "id": "008dabde-1869-470f-9990-fdec6709fd23",
+        "line": 60,
+        "version": 2177,
+        "index": 3462
+      }
+    ],
     "game.cpp": [
       {
         "id": "61d37e8c-1b5e-49ec-8597-73d4fbf0e188",
-        "line": 226,
-        "version": 511,
-        "index": 6486
+        "line": 223,
+        "version": 518,
+        "index": 6440
       },
       {
         "id": "56110a2a-3347-49d5-9d69-4ae0b2afb6c1",
-        "line": 288,
-        "version": 511,
-        "index": 8095
+        "line": 285,
+        "version": 518,
+        "index": 8049
       },
       {
         "id": "c38a56e2-c834-4316-8720-7f6417702e49",
-        "line": 305,
-        "version": 511,
-        "index": 8679
+        "line": 303,
+        "version": 518,
+        "index": 8633
       }
     ],
     "main.cpp": [
       {
         "id": "2e355d89-dffc-4450-be68-480ee300689a",
-        "line": 63,
-        "version": 32782,
-        "index": 2394
+        "line": 39,
+        "version": 32937,
+        "index": 732
       },
       {
         "id": "61c426b0-a021-43f7-851d-55cd5526d783",
-        "line": 63,
-        "version": 32782,
-        "index": 2394
+        "line": 39,
+        "version": 32937,
+        "index": 732
       },
       {
         "id": "57884339-487b-4ce6-8af6-461e04d785b6",
-        "line": 63,
-        "version": 32782,
-        "index": 2394
+        "line": 39,
+        "version": 32937,
+        "index": 732
       }
     ],
     "options.cpp": [
       {
         "id": "df73ac99-a18e-4791-8b78-a38aa90ab17c",
-        "line": 64,
-        "version": 421,
-        "index": 1445
+        "line": 66,
+        "version": 460,
+        "index": 1472
       },
       {
         "id": "782ee3b4-7952-41dc-bf02-fe23b8f9b2d6",
-        "line": 83,
-        "version": 421,
-        "index": 1916
+        "line": 85,
+        "version": 460,
+        "index": 1943
       }
     ]
   }

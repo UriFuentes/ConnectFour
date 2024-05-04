@@ -4,9 +4,9 @@
 #include <string>
 using namespace std;
 
-void display(string content){
+void displayArcade(string content){
   
-  //Screen SIZE: 18x66
+  //18x66 screen
 
   // Display Top of Arcade machine 
 
@@ -28,14 +28,13 @@ void display(string content){
     "     ▜▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▛     \n"
     "      ▜░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▛      \n"
     "       ▜░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▛       \n";
+  
 
+    cout << content;
 
-    //This spacing + cursor movement changes keeps the space between the top and bottom constant
-    cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"; 
-    saveCursor();
-
-
-
+    for (int i = 0; i < 13; ++i) {
+      cout << "\n";
+    }
 
 
 
@@ -58,12 +57,6 @@ void display(string content){
     "█▌                                                                              ▐█\n"
     "█▌                                                                              ▐█\n"
     "█▌                                                                              ▐█\n";
-
-
-  returnCursor();
-  cout << content;
-
-    
 
 
 

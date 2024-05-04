@@ -9,7 +9,7 @@ int OPTIONS_MENU(mark &P1, mark &P2){
     clrscr();
 
     if (P1.mark == P2.mark)
-      warning("Marks are identical!\n\n");
+      (warning("Marks are identical!\n\n"));
 
     char option;
     cout << "\x1b[1mCustomization Options\x1b[22m\n\n";

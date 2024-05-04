@@ -16,32 +16,29 @@ int main(){
   mark P2 = {"\u001b[33m", "O\x1b[0m"}; // YELLOW "O"
 
   char option;
+
+  // displayArcade();
+  
   do
   {
     clrscr();
 
-    // Output Game Title in BOLD
-    // cout << " ██████╗ ██████╗ ███╗   ██╗███╗   ██╗███████╗ ██████╗████████╗    ██╗  ██╗" << endl <<
-    //   "██╔════╝██╔═══██╗████╗  ██║████╗  ██║██╔════╝██╔════╝╚══██╔══╝    ██║  ██║" << endl <<
-    //   "██║     ██║   ██║██╔██╗ ██║██╔██╗ ██║█████╗  ██║        ██║       ███████║" << endl <<
-    //   "██║     ██║   ██║██║╚██╗██║██║╚██╗██║██╔══╝  ██║        ██║       ╚════██║" << endl <<
-    //   "╚██████╗╚██████╔╝██║ ╚████║██║ ╚████║███████╗╚██████╗   ██║            ██║" << endl <<
-    //   " ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═╝            ╚═╝" << endl ;
 
-    // cout << right << setw(35) << "1. Play ♟︎\n"
-    //      << setw(50) << "2. Practice [NOT IMPLEMENTED]\n"
-    //      << setw(38) << "3. Options ⚒︎\n"
-    //      << setw(28) << "4. Exit\n";
+    // cout << "1. Play ♟︎\n"
+    //      << "2. Practice [NOT IMPLEMENTED]\n"
+    //      << "3. Options ⚒︎\n"
+    //      << "4. Exit\n";
 
-    // cout << setw(23) << endl << "Selection: ";
+    // cout << "Selection: ";
 
-    display
+    displayArcade
     ( "\t\t1. Play ♟︎\n"
       "\t\t2. Practice [NOT IMPLEMENTED]\n"
       "\t\t3. Options ⚒︎\n"
       "\t\t4. Exit\n"
       "\tSelection: "
       );
+    
 
     cin >> option;
 
@@ -59,4 +56,5 @@ int main(){
   }
   while(1);
 }
+
 

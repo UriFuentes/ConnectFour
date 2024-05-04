@@ -11,8 +11,16 @@ struct mark{
   string mark = color + character;
 };
 
-inline void clrscr() // clears console screen
-{cout << "\033c";}
+// Note: Following Function erases arcade "screen", NOT the entire program's screen
+inline void clrscr(){
+
+  cout << "\x1b[9;0H" << "\x1b[9;0f"; // Moves cursor to first line of screen
+
+  for (int i = 0 ; i < 18 ; i++)   // Deletes every line in arcade screen
+    cout << "\x1b[2K" << "\x1b[1B";
+
+  cout << "\x1b[9;0H" << "\x1b[9;0f"; // Moves cursor to first line of screen
+}
 
 inline void clrln() // clears line
 {cout << "\x1B[1A\x1B[2K";}
@@ -29,6 +37,6 @@ inline void saveCursor() // saves cursor position
 /* returns to last saved cursor position + moves cursor up N spaces,
    where N = width of the arcade machine screen*/
 inline void returnCursor() 
-{cout << "\x1b[u" << "\x1b[18A";}
+{cout << "\x1b[u";}
 
 #endif

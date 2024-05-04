@@ -2,6 +2,7 @@
 #define OPTIONS_H
 #include <iostream>
 #include "mark.h"
+#include "background.h"
 using namespace std;
 
 int OPTIONS_MENU(mark &, mark &); // Game Options 
