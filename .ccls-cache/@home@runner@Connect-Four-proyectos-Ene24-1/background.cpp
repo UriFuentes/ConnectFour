@@ -5,6 +5,8 @@
 using namespace std;
 
 void displayArcade(string content){
+
+  cout << "\x1b[H"; // Returns Cursor to beginning of terminal screen
   
   //18x66 screen
 

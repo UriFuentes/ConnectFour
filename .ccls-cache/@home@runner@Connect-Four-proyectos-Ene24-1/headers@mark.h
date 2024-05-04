@@ -22,6 +22,11 @@ inline void clrscr(){
   cout << "\x1b[9;0H" << "\x1b[9;0f"; // Moves cursor to first line of screen
 }
 
+// Note: Following function erases entire programs screen.
+inline void clrtrm(){
+  cout << "\033c";
+}
+
 inline void clrln() // clears line
 {cout << "\x1B[1A\x1B[2K";}
 

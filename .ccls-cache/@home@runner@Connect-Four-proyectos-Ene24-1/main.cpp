@@ -16,20 +16,12 @@ int main(){
   mark P2 = {"\u001b[33m", "O\x1b[0m"}; // YELLOW "O"
 
   char option;
-
-  // displayArcade();
   
   do
   {
+
+    clrtrm();
     clrscr();
-
-
-    // cout << "1. Play ♟︎\n"
-    //      << "2. Practice [NOT IMPLEMENTED]\n"
-    //      << "3. Options ⚒︎\n"
-    //      << "4. Exit\n";
-
-    // cout << "Selection: ";
 
     displayArcade
     ( "\t\t1. Play ♟︎\n"
