@@ -14,12 +14,12 @@ struct mark{
 // Note: Following Function erases arcade "screen", NOT the entire program's screen
 inline void clrscr(){
 
-  cout << "\x1b[9;0H" << "\x1b[9;0f"; // Moves cursor to first line of screen
+  cout << "\x1b[20;0H" << "\x1b[20;0f"; // Moves cursor to first line of screen
 
   for (int i = 0 ; i < 17 ; i++)   // Deletes line + moves cursor down
     cout << "\x1b[2K" << "\x1b[1B";
 
-  cout << "\x1b[9;0H" << "\x1b[9;0f"; // Moves cursor to first line of screen
+  cout << "\x1b[20;0H" << "\x1b[20;0f"; // Moves cursor to first line of screen
 }
 
 // Note: Following function erases entire program's screen.
