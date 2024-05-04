@@ -1,11 +1,12 @@
 #include "headers/background.h"
+#include "headers/mark.h"
 #include <iostream>
 #include <string>
 using namespace std;
 
 void display(string content){
   
-  //18x66 screen
+  //Screen SIZE: 18x66
 
   // Display Top of Arcade machine 
 
@@ -27,13 +28,11 @@ void display(string content){
     "     ▜▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▛     \n"
     "      ▜░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▛      \n"
     "       ▜░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▛       \n";
-      
-    cout << "\t\t" << content;
 
 
-
-
-
+    //This spacing + cursor movement changes keeps the space between the top and bottom constant
+    cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"; 
+    saveCursor();
 
 
 
@@ -61,6 +60,8 @@ void display(string content){
     "█▌                                                                              ▐█\n";
 
 
+  returnCursor();
+  cout << content;
 
     
 

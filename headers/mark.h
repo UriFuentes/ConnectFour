@@ -26,7 +26,9 @@ inline void error(string msg) // displays error message
 inline void saveCursor() // saves cursor position
 {cout << "\x1b[s";}
 
-inline void returnCursor() // returns to last saved cursor position
-{cout << "\x1b[u";}
+/* returns to last saved cursor position + moves cursor up N spaces,
+   where N = width of the arcade machine screen*/
+inline void returnCursor() 
+{cout << "\x1b[u" << "\x1b[18A";}
 
 #endif

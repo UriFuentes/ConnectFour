@@ -3,6 +3,7 @@
 #include <vector>
 #include "headers/game.h"
 #include "headers/mark.h"
+#include "headers/background.h"
 #include "headers/4InARowScan.h"
 using namespace std;
 
@@ -26,12 +27,12 @@ void deleteRow (vector<vector<string>> &board , short COLS, int row){
 
 void displayBoard(vector<vector<string>> board, short COLS, bool AbilityModeON){
 
-  cout << " ██████╗ ██████╗ ███╗   ██╗███╗   ██╗███████╗ ██████╗████████╗    ██╗  ██╗" << endl <<
-    "██╔════╝██╔═══██╗████╗  ██║████╗  ██║██╔════╝██╔════╝╚══██╔══╝    ██║  ██║" << endl <<
-    "██║     ██║   ██║██╔██╗ ██║██╔██╗ ██║█████╗  ██║        ██║       ███████║" << endl <<
-    "██║     ██║   ██║██║╚██╗██║██║╚██╗██║██╔══╝  ██║        ██║       ╚════██║" << endl <<
-    "╚██████╗╚██████╔╝██║ ╚████║██║ ╚████║███████╗╚██████╗   ██║            ██║" << endl <<
-    " ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═╝            ╚═╝" << endl << endl;
+  // cout << " ██████╗ ██████╗ ███╗   ██╗███╗   ██╗███████╗ ██████╗████████╗    ██╗  ██╗" << endl <<
+  //   "██╔════╝██╔═══██╗████╗  ██║████╗  ██║██╔════╝██╔════╝╚══██╔══╝    ██║  ██║" << endl <<
+  //   "██║     ██║   ██║██╔██╗ ██║██╔██╗ ██║█████╗  ██║        ██║       ███████║" << endl <<
+  //   "██║     ██║   ██║██║╚██╗██║██║╚██╗██║██╔══╝  ██║        ██║       ╚════██║" << endl <<
+  //   "╚██████╗╚██████╔╝██║ ╚████║██║ ╚████║███████╗╚██████╗   ██║            ██║" << endl <<
+  //   " ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═╝            ╚═╝" << endl << endl;
 
 
   
@@ -159,6 +160,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
     for (short c = 0; c < COLS; c++)
       board[r] = vector<string>(COLS, "[ ]");
 
+  display();
   displayBoard(board, COLS, abilityModeON);
 
   /// Declaration of game variables ///
@@ -305,7 +307,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
       board[row][inputColumn] = "[" + player_mark + "]";
 
     // Clear old board and display Modified board
-    clrscr(); displayBoard(board, COLS, abilityModeON);
+    clrscr(); display()displayBoard(board, COLS, abilityModeON);
 
     if (!isWinner && isFourInARow(board, COLS, player_mark)){
       clrscr(); displayBoard(board, COLS, false);

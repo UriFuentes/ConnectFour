@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "background.h"
 #include "mark.h"
 using namespace std;
 

@@ -5,6 +5,7 @@
 #include "headers/mark.h"
 #include "headers/game.h"
 #include "headers/options.h"
+#include "headers/background.h"
 #include "headers/4InARowScan.h"
 using namespace std;
 
@@ -20,19 +21,28 @@ int main(){
     clrscr();
 
     // Output Game Title in BOLD
-    cout << " ██████╗ ██████╗ ███╗   ██╗███╗   ██╗███████╗ ██████╗████████╗    ██╗  ██╗" << endl <<
-      "██╔════╝██╔═══██╗████╗  ██║████╗  ██║██╔════╝██╔════╝╚══██╔══╝    ██║  ██║" << endl <<
-      "██║     ██║   ██║██╔██╗ ██║██╔██╗ ██║█████╗  ██║        ██║       ███████║" << endl <<
-      "██║     ██║   ██║██║╚██╗██║██║╚██╗██║██╔══╝  ██║        ██║       ╚════██║" << endl <<
-      "╚██████╗╚██████╔╝██║ ╚████║██║ ╚████║███████╗╚██████╗   ██║            ██║" << endl <<
-      " ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═╝            ╚═╝" << endl ;
+    // cout << " ██████╗ ██████╗ ███╗   ██╗███╗   ██╗███████╗ ██████╗████████╗    ██╗  ██╗" << endl <<
+    //   "██╔════╝██╔═══██╗████╗  ██║████╗  ██║██╔════╝██╔════╝╚══██╔══╝    ██║  ██║" << endl <<
+    //   "██║     ██║   ██║██╔██╗ ██║██╔██╗ ██║█████╗  ██║        ██║       ███████║" << endl <<
+    //   "██║     ██║   ██║██║╚██╗██║██║╚██╗██║██╔══╝  ██║        ██║       ╚════██║" << endl <<
+    //   "╚██████╗╚██████╔╝██║ ╚████║██║ ╚████║███████╗╚██████╗   ██║            ██║" << endl <<
+    //   " ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═╝            ╚═╝" << endl ;
 
-    cout << right << setw(35) << "1. Play ♟︎\n"
-         << setw(50) << "2. Practice [NOT IMPLEMENTED]\n"
-         << setw(38) << "3. Options ⚒︎\n"
-         << setw(28) << "4. Exit\n";
+    // cout << right << setw(35) << "1. Play ♟︎\n"
+    //      << setw(50) << "2. Practice [NOT IMPLEMENTED]\n"
+    //      << setw(38) << "3. Options ⚒︎\n"
+    //      << setw(28) << "4. Exit\n";
 
-    cout << setw(23) << endl << "Selection: ";
+    // cout << setw(23) << endl << "Selection: ";
+
+    display
+    ( "\t\t1. Play ♟︎\n"
+      "\t\t2. Practice [NOT IMPLEMENTED]\n"
+      "\t\t3. Options ⚒︎\n"
+      "\t\t4. Exit\n"
+      "\tSelection: "
+      );
+
     cin >> option;
 
     switch(option){ // Cases are in decimal value

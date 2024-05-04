@@ -5,6 +5,6 @@
 #include "mark.h"
 using namespace std;
 
-void display(string content);
+void display(string content = "");
 
 #endif
