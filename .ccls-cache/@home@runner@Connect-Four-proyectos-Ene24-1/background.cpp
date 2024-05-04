@@ -8,7 +8,7 @@ void displayArcade(string content){
 
   cout << "\x1b[H"; // Returns Cursor to beginning of terminal screen
   
-  //18x66 screen
+  // Screen SIZE: 66x18
 
   // Display Top of Arcade machine 
 
@@ -29,17 +29,17 @@ void displayArcade(string content){
     "    ▜▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▛    \n"
     "     ▜▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▛     \n"
     "      ▜░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▛      \n"
-    "       ▜░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▛       \n";
+    "       ▜░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▛       \n" << endl;
   
 
-    cout << content;
+  // Display Main menu (5 lines)
+    cout << endl << content;
+    saveCursor();
 
+  // Display remaining space below original menu (13 lines)
     for (int i = 0; i < 13; ++i) {
       cout << "\n";
     }
-
-
-
 
   // Display bottom of arcade machine
 
@@ -60,7 +60,7 @@ void displayArcade(string content){
     "█▌                                                                              ▐█\n"
     "█▌                                                                              ▐█\n";
 
-
+  returnCursor();
 
   
 }

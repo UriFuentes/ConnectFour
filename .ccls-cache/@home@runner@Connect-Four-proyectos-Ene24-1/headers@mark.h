@@ -16,13 +16,13 @@ inline void clrscr(){
 
   cout << "\x1b[9;0H" << "\x1b[9;0f"; // Moves cursor to first line of screen
 
-  for (int i = 0 ; i < 18 ; i++)   // Deletes every line in arcade screen
+  for (int i = 0 ; i < 17 ; i++)   // Deletes line + moves cursor down
     cout << "\x1b[2K" << "\x1b[1B";
 
   cout << "\x1b[9;0H" << "\x1b[9;0f"; // Moves cursor to first line of screen
 }
 
-// Note: Following function erases entire programs screen.
+// Note: Following function erases entire program's screen.
 inline void clrtrm(){
   cout << "\033c";
 }
@@ -39,9 +39,7 @@ inline void error(string msg) // displays error message
 inline void saveCursor() // saves cursor position
 {cout << "\x1b[s";}
 
-/* returns to last saved cursor position + moves cursor up N spaces,
-   where N = width of the arcade machine screen*/
-inline void returnCursor() 
+inline void returnCursor() // returns cursor to last saved position
 {cout << "\x1b[u";}
 
 #endif

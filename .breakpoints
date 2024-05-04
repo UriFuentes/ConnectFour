@@ -3,9 +3,9 @@
     "background.cpp": [
       {
         "id": "008dabde-1869-470f-9990-fdec6709fd23",
-        "line": 60,
-        "version": 2177,
-        "index": 3462
+        "line": 1,
+        "version": 2431,
+        "index": 0
       }
     ],
     "game.cpp": [
@@ -32,20 +32,20 @@
       {
         "id": "2e355d89-dffc-4450-be68-480ee300689a",
         "line": 39,
-        "version": 32937,
-        "index": 732
+        "version": 33031,
+        "index": 718
       },
       {
         "id": "61c426b0-a021-43f7-851d-55cd5526d783",
         "line": 39,
-        "version": 32937,
-        "index": 732
+        "version": 33031,
+        "index": 718
       },
       {
         "id": "57884339-487b-4ce6-8af6-461e04d785b6",
         "line": 39,
-        "version": 32937,
-        "index": 732
+        "version": 33031,
+        "index": 718
       }
     ],
     "options.cpp": [
