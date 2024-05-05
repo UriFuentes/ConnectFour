@@ -27,8 +27,8 @@ int main(){
     ( "\t\t1. Play ♟︎\n"
       "\t\t2. Practice [NOT IMPLEMENTED]\n"
       "\t\t3. Options ⚒︎\n"
-      "\t\t4. Exit\n"
-      "\tSelection: "
+      "\t\t4. Exit\n\n"
+      "\t\tSelection: "
       );
     
 

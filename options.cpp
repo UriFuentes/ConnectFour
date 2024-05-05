@@ -1,9 +1,15 @@
 #include <iostream>
+#include <fstream>
 #include "headers/options.h"
 #include "headers/mark.h"
 using namespace std;
 
 int OPTIONS_MENU(mark &P1, mark &P2){
+
+  // Used for Resetting player scores
+  string answer;
+  const bool answer_Yes = answer == "Y" || answer == "y";
+  const bool answer_No  = answer == "N" || answer == "n";
 
   do{
     clrscr();
@@ -12,11 +18,12 @@ int OPTIONS_MENU(mark &P1, mark &P2){
       (warning("Marks are identical!\n\n"));
 
     char option;
-    cout << "\x1b[1mCustomization Options\x1b[22m\n\n";
+    cout << "\x1b[1mOptions\x1b[22m\n\n";
 
-    cout << "\t1. Colors\n"
-         << "\t2. Character\n"
-         << "\t3. Return to MAIN MENU\n";
+    cout << "\t1. Change Colors\n"
+         << "\t2. Change Characters\n"
+         << "\t3. Reset player Scores\n"
+         << "\t4. Return to MAIN MENU\n";
 
     cout << "\nSelection: ";
     cin >> option;
@@ -26,7 +33,32 @@ int OPTIONS_MENU(mark &P1, mark &P2){
 
       case 50: clrscr(); CHARS_MENU(P1, P2); break;
 
-      case 51: 
+      case 51:
+        
+        clrscr();
+        
+        do{
+          cout << "Are you sure you want to delete ALL scores? (Y/n): ";
+          cin >> answer;
+  
+          if (answer == "Y" || answer == "y"){
+
+            // Open files, delete, close
+            ofstream delete1("records/P1points.txt"); 
+            delete1 << 0;
+            delete1.close();
+            
+            ofstream delete2("records/P2points.txt"); 
+            delete2 << 0;
+            delete2.close();
+          }
+  
+        }
+        while (answer_Yes && answer_No); // input validation
+
+      break;
+
+      case 52: 
         clrscr(); 
 
         if (P1.mark == P2.mark){
@@ -35,9 +67,9 @@ int OPTIONS_MENU(mark &P1, mark &P2){
           cin.ignore(); cin.get();
         }
         else
-          return  0; 
+          return 0; 
 
-        break;
+      break;
     }
   }
   while(1);
