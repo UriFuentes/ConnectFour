@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 #include "headers/options.h"
 #include "headers/mark.h"
 using namespace std;
@@ -12,20 +13,22 @@ int OPTIONS_MENU(mark &P1, mark &P2){
   const bool answer_No  = answer == "N" || answer == "n";
 
   do{
-    clrscr();
-
+    
+    displayTop();
     if (P1.mark == P2.mark)
       (warning("Marks are identical!\n\n"));
 
     char option;
-    cout << "\x1b[1mOptions\x1b[22m\n\n";
+    cout << right << setw(55) <<"\x1b[1mOptions\x1b[22m\n\n";
 
-    cout << "\t1. Change Colors\n"
-         << "\t2. Change Characters\n"
-         << "\t3. Reset player Scores\n"
-         << "\t4. Return to MAIN MENU\n";
+    cout <<setw(46) << "\t1. Change Colors\n"
+         <<setw(52) <<  "\t2. Change Characters\n"
+         <<setw(52) << "\t3. Reset player Scores\n"
+         <<setw(52) << "\t4. Return to MAIN MENU\n";
 
-    cout << "\nSelection: ";
+    cout << setw(47) << endl << "Selection: ";
+    displayBottom(10); //lo cambie a 10 estaba en 8
+    
     cin >> option;
 
     switch(option){
@@ -38,18 +41,19 @@ int OPTIONS_MENU(mark &P1, mark &P2){
         clrscr();
         
         do{
-          cout << "Are you sure you want to delete ALL scores? (Y/n): ";
+          displayTop();
+          cout << right << setw(52) <<"Reset Player Scores\n";
+          cout << setw(67) << endl << "Are you sure you want to delete ALL scores? (Y/n): ";
+          displayBottom(1);
+          
           cin >> answer;
   
           if (answer == "Y" || answer == "y"){
-
-            // Open files, delete, close
+            // Open files, delete in process, close
             ofstream delete1("records/P1points.txt"); 
-            delete1 << 0;
             delete1.close();
             
             ofstream delete2("records/P2points.txt"); 
-            delete2 << 0;
             delete2.close();
           }
   
@@ -59,11 +63,14 @@ int OPTIONS_MENU(mark &P1, mark &P2){
       break;
 
       case 52: 
-        clrscr(); 
 
         if (P1.mark == P2.mark){
+          
+          displayTop();
           error("Marks cannot be identical. Please make a change.\n\n");
           cout << "(Press ENTER to return to OPTIONS menu)";
+          displayBottom(3);
+          
           cin.ignore(); cin.get();
         }
         else
@@ -79,25 +86,29 @@ int OPTIONS_MENU(mark &P1, mark &P2){
 
 void COLORS_MENU(mark &P1, mark &P2){
 
-  // Display List of available colors in with ANSI codes
-
-  cout << "Available colors:\n"
-       << "\t1.\u001b[31m Red\u001b[0m\n"
-       << "\t2.\u001b[32m Green\u001b[0m\n"
-       << "\t3.\u001b[33m Yellow\u001b[0m\n"
-       << "\t4.\u001b[34m Blue\u001b[0m\n"
-       << "\t5.\u001b[35m Magenta\u001b[0m\n"
-       << "\t6.\u001b[36m Cyan\u001b[0m\n"
-       << "\t7. White (Default)\n"
-       << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+  // List of available colors in with ANSI codes
+  
+  string colorMenu = 
+     "Available colors:\n"
+     "\t1.\u001b[31m Red\u001b[0m\n"
+     "\t2.\u001b[32m Green\u001b[0m\n"
+     "\t3.\u001b[33m Yellow\u001b[0m\n"
+     "\t4.\u001b[34m Blue\u001b[0m\n"
+     "\t5.\u001b[35m Magenta\u001b[0m\n"
+     "\t6.\u001b[36m Cyan\u001b[0m\n"
+     "\t7. White (Default)\n"
+     "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 
   char option;
   /////// PLAYER 1 SELECTION ///////
   do
   { 
+    displayTop();
+    cout << colorMenu;
     cout << "Player 1 Selection: "; 
+    displayBottom(10);
+    
     cin >> option;
-
     if(option > 55 || option < 49)
       clrln();
   }
@@ -107,16 +118,16 @@ void COLORS_MENU(mark &P1, mark &P2){
   P1.color = "\u001b[3" + to_string(option - 48) + "m";
   P1.mark = P1.color + P1.character;
 
-  // Deletes line and writes mark with selected color
-  clrln(); 
-  cout << "Player 1 Selection: [" << P1.mark << "]\n";
-
   /////// PLAYER 2 SELECTION ///////
   do
   { 
+    displayTop();
+    cout << colorMenu;
+    cout << "Player 1 Selection: [" << P1.mark << "]\n";
     cout << "Player 2 Selection: "; 
+    displayBottom(10);
+    
     cin >> option;
-
     if(option > 55 || option < 49)
       clrln();
   }
@@ -138,27 +149,30 @@ void COLORS_MENU(mark &P1, mark &P2){
 
 
 void CHARS_MENU(mark &P1, mark &P2){
-
-  cout << "Available Icons:\n\n";
-
-  cout << "\t1. ★\n"
-       << "\t2. ❆\n"
-       << "\t3. ✦\n"
-       << "\t4. ♡\n"
-       << "\t5. ♫\n"
-       << "\t6. ☽\n"
-       << "\t7. ✿\n"
-       << "\t8. A-Z Characters [Not Coded]\n"
-       << "\t9. Paste your own [Not Coded]\n"
-       << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+// FALTA setw
+  string iconMenu = 
+     "Available Icons:\n\n"
+     "\t1. ★\n"
+     "\t2. ❆\n"
+     "\t3. ✦\n"
+     "\t4. ♡\n"
+     "\t5. ♫\n"
+     "\t6. ☽\n"
+     "\t7. ✿\n"
+     "\t8. A-Z Characters [Not Coded]\n"
+     "\t9. Paste your own [Not Coded]\n"
+     "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 
   char option;
   /////// PLAYER 1 SELECTION ///////
   do
   {
+    displayTop();
+    cout << iconMenu;
     cout << "Player 1 Selection: "; 
+    displayBottom(12);
+    
     cin >> option;
-
     if(option > 57 || option < 49)
       clrln();
   }
@@ -177,16 +191,16 @@ void CHARS_MENU(mark &P1, mark &P2){
 
   P1.mark = P1.color + P1.character;
 
-  // Deletes line and writes mark
-  clrln(); 
-  cout << "Player 1 Selection: [" << P1.mark << "]\n";
-
   /////// PLAYER 2 SELECTION ///////
   do
   {
-    cout << "Player 2 Selection: "; 
+    displayTop();
+    cout << iconMenu;
+    cout << "Player 1 Selection: [" << P1.mark << "]\n";
+    cout << "Player 2 Selection: ";
+    displayBottom(12);
+    
     cin >> option;
-
     if(option > 57 || option < 49)
       clrln();
   }

@@ -5,6 +5,7 @@
 #include "mark.h"
 using namespace std;
 
-void displayArcade(string);
+void displayTop();
+void displayBottom(int);
 
 #endif

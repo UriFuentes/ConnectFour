@@ -35,7 +35,7 @@ void displayBoard(vector<vector<string>> board, short COLS, bool AbilityModeON){
 
   int ROWS = board.size();
 
-  clrscr();
+  displayTop();
 
   // Prints numbers on top to identify columns
   cout << LcornerFrame; 
@@ -52,7 +52,8 @@ void displayBoard(vector<vector<string>> board, short COLS, bool AbilityModeON){
 
     cout << " " << boardFrame; // right board frame
 
-    if (AbilityModeON) // prints row numbers when playing in abilities mode
+    // Prints row numbers to identify rows
+    if (AbilityModeON) 
       cout << " " << r << endl;
     else
       cout << endl; 
@@ -65,73 +66,79 @@ void displayBoard(vector<vector<string>> board, short COLS, bool AbilityModeON){
   cout << legFrame;
 
   cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n";// Spacer
+
+  displayBottom(ROWS+3); // Accomodates board size + Adittional UI space
 }
 
 int RUN_GAME(bool isPractice, mark P1, mark P2){
 
-  //Declare Variables
   short ROWS, COLS; // Rows and columns for the board matrix
-  bool abilityModeON = false;
+  bool abilityModeON = false; // Checks if player selected ability gamemode
 
   //OUTPUT RULES
+
+  // FALTA setw 
+  displayTop();
   cout << "\x1b[1mRULES\x1b[22m\n\n"
        << "1. Choose the column # to place your mark.\n"
        << "2. Marks can be connected diagonally, vertcally, or horizontally.\n"
        << "3. First player to connect four marks in a row wins the game.\n ";
 
-  cout << "\n(Press ENTER to continue)" << endl;
+  cout << "\n(Press ENTER to continue)\n";
+  displayBottom(7);
+  
   cin.ignore(); cin.get();
 
-  clrscr();
-
 //Display Board Size Options
+  // FALTA setw
   char option;
   do 
   {
-    clrscr();
-
+    displayTop();
     cout << "\x1b[1mChoose a Board Size:\x1b[22m\n\n"
          << "\t1. Classic (7x6)\n"
          << "\t2. Large (9x8)\n"
          << "\t3. Larger (12x9)\n\n";
     cout << "Selection: ";
+    displayBottom(6);
+    
     cin >> option;
 
     if(option < 49 || option > 51)
       clrln();
-
   }
   while(option < 49 || option > 51);
 
   // Switch for pre-defined options
   switch(option){
-
     case 49: COLS = 7 , ROWS = 6; break;
     case 50: COLS = 9 , ROWS = 8; break;
     case 51: COLS = 11, ROWS = 9; break; 
   }
 
 //Display Game Mode Options
+  
+  //FALTA SETW!!!!!!!!!!!!!
+  
   do 
   {
-    clrscr();
-
+    displayTop();
     cout << "\x1b[1mChoose a Game Mode:\x1b[22m\n\n"
          << "\t1. Classic\n"
          << "\t2. Blinded\n"
          << "\t3. Abilities [W.I.P]\n\n";
     cout << "Selection: ";
+    displayBottom(6);
+    
     cin >> option;
 
     if(option < 49 || option > 51)
       clrln();
-
   }
   while(option < 49 || option > 51);
 
   // Switch for pre-defined options
   switch(option){
-
     case 50: // Blinded
 
       /* Sets both marks to purple "X", adds an additional ANSI code 
@@ -141,12 +148,12 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
       break;
 
     case 51: // Abilities
+      
       abilityModeON = true; 
       break;
   }
 
   // Cycle to fill and display blank gameboard (2d Vector)
-  clrscr();
   vector<vector<string>> board(ROWS);
 
   for (short r = 0; r < ROWS; r++) 
@@ -190,11 +197,9 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
     }
 
     if (isFourInARow(board, COLS, player_mark)){
-      clrscr(); displayBoard(board, COLS, false);
+      displayBoard(board, COLS, false); 
       break;
     }
-
-  // NOTE !!!!!!: Talvez poner esto en otra funcion??? no se ve demasiado
 
     bool usedAbility = false; // Will prevent writing a mark if ability is used
     row = ROWS - 1; // Resets row index
@@ -210,6 +215,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
         cout << "\t1. Place mark\n"
              << "\t2. Delete Column (" << *colDel << " Remaining)\n"
              << "\t3. Delete Row    (" << *rowDel << " Remaining)\n\n\n";
+        // displayBottom(ROWS+7); // (Takes into account board)
 
         do
         {
@@ -241,9 +247,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
 
             deleteColumn(board, COLS, inputColumn);
             displayBoard(board, COLS, abilityModeON);
-
-            if (isFourInARow(board, COLS, player_mark))
-              isWinner = true;
+      
             break;
 
         // Delete Row
@@ -256,6 +260,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
 
             deleteRow(board, COLS, inputRow);
             displayBoard(board, COLS, abilityModeON);
+            
             break;
         }
         clrln();
@@ -282,6 +287,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
     if (board[0][inputColumn] != "[ ]" && !isWinner)
     {
       do{
+      clrln();
       cout << "Selected column is full, choose another: ";
       cin >> inputColumn;
       }
@@ -296,10 +302,8 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
     // If element at index is empty and ability was NOT used, write mark
     if (board[row][inputColumn] == "[ ]" && !usedAbility && !isWinner){
       board[row][inputColumn] = "[" + player_mark + "]";
-
       displayBoard(board, COLS, abilityModeON);
     }
-  
 
     // Display winner 
     if (!isWinner && isFourInARow(board, COLS, player_mark)){
@@ -319,7 +323,6 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
   
   ifstream getPoints("records/P" + to_string(activePlayer)+ "points.txt");
   getPoints >> point; 
-  cout << point;
   getPoints.close();
   
   point += 1;            
@@ -329,7 +332,6 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
   writePoints.close();
 
   // Display Winner
-  
   cout << "\nPlayer " << activePlayer << " WINS!" << endl;
   cout << "\n\n(Press ENTER to return to MAIN MENU)" << endl;
   cin.ignore(); cin.get(); 

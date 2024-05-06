@@ -20,16 +20,14 @@ int main(){
   do
   {
 
-    clrtrm();
-    clrscr();
+    displayTop();
+    cout << right << setw(42) << "1. Play ♟︎\n"
+         << setw(57) << "2. Practice [NOT IMPLEMENTED]\n"
+         << setw(45) << "3. Options ⚒︎\n"
+         << setw(35) << "4. Exit\n";
 
-    displayArcade
-    ( "\t\t1. Play ♟︎\n"
-      "\t\t2. Practice [NOT IMPLEMENTED]\n"
-      "\t\t3. Options ⚒︎\n"
-      "\t\t4. Exit\n\n"
-      "\t\tSelection: "
-      );
+    cout << setw(38) << "Selection: ";
+    displayBottom(10); // lo cambie a 10 a ver como se veia. estaba en 5
     
 
     cin >> option;
@@ -37,11 +35,11 @@ int main(){
     switch(option){ // Cases are in decimal value
 
       // NOT Practice game
-      case 49: clrscr(); RUN_GAME(false, P1, P2); break;
+      case 49: RUN_GAME(false, P1, P2); break;
       // Practice game
-      case 50: clrscr(); RUN_GAME(true, P1, P2); break; 
+      case 50: RUN_GAME(true, P1, P2); break; 
 
-      case 51: clrscr(); OPTIONS_MENU(P1, P2); break;
+      case 51: OPTIONS_MENU(P1, P2); break;
 
       case 52: return 0; break;
     } 

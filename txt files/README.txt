@@ -10,3 +10,6 @@ https://www.piliapp.com/symbol/
 
 "Connect 4" Stylized text: 
 https://www.asciiart.eu/text-to-ascii-art
+
+ANSI Code Documentation:
+https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
