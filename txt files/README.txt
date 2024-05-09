@@ -8,7 +8,7 @@ Colaborations:
 Special characters used to make gfx: 
 https://www.piliapp.com/symbol/
 
-"Connect 4" Stylized text: 
+"Connect 4" Stylized text title: 
 https://www.asciiart.eu/text-to-ascii-art
 
 ANSI Code Documentation:

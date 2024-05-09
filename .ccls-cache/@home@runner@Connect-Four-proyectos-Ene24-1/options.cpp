@@ -21,10 +21,12 @@ int OPTIONS_MENU(mark &P1, mark &P2){
     char option;
     cout << right << setw(55) <<"\x1b[1mOptions\x1b[22m\n\n";
 
-    cout <<setw(46) << "\t1. Change Colors\n"
-         <<setw(52) <<  "\t2. Change Characters\n"
-         <<setw(52) << "\t3. Reset player Scores\n"
-         <<setw(52) << "\t4. Return to MAIN MENU\n";
+    int dist = 33;
+
+    cout << right <<setw(dist) << "\t1. Change Colors\n"
+         <<setw(dist) <<  "\t2. Change Characters\n"
+          <<setw(dist) << "\t3. Reset player Scores\n"
+         <<setw(dist) << "\t4. Return to MAIN MENU\n";
 
     cout << setw(47) << endl << "Selection: ";
     displayBottom(10); //lo cambie a 10 estaba en 8
@@ -43,7 +45,8 @@ int OPTIONS_MENU(mark &P1, mark &P2){
         do{
           displayTop();
           cout << right << setw(52) <<"Reset Player Scores\n";
-          cout << setw(67) << endl << "Are you sure you want to delete ALL scores? (Y/n): ";
+          cout << setw(67) << endl;
+          warning("Are you sure you want to delete ALL scores? (Y/n): ");
           displayBottom(1);
           
           cin >> answer;
@@ -87,7 +90,7 @@ int OPTIONS_MENU(mark &P1, mark &P2){
 void COLORS_MENU(mark &P1, mark &P2){
 
   // List of available colors in with ANSI codes
-  
+  //cambiar colores a variables const
   string colorMenu = 
      "Available colors:\n"
      "\t1.\u001b[31m Red\u001b[0m\n"

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <iomanip> 
 #include "headers/game.h"
 #include "headers/mark.h"
 #include "headers/4InARowScan.h"
@@ -27,11 +28,15 @@ void deleteRow (vector<vector<string>> &board , short COLS, int row){
 
 void displayBoard(vector<vector<string>> board, short COLS, bool AbilityModeON){
   
-  string color = "\u001b[38;5;21m"; // (BLUE)
-  string boardFrame = color + "█\u001b[0m";
-  string LcornerFrame  = color + " ▟ \u001b[0m";
-  string RcornerFrame  = color + " ▙\u001b[0m";
-  string legFrame = color + "▟█▙\u001b[0m";
+  string boardColor = "\u001b[38;5;21m"; // (BLUE)
+  string floorColor = "\u001b[38;5;241m"; // (GREY)
+  string resetColor = "\x1b[0m";
+
+  string boardFloor = "\n▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇\n\n";
+  string boardFrame = boardColor + "█\u001b[0m";
+  string LcornerFrame  = boardColor + " ▟ \u001b[0m";
+  string RcornerFrame  = boardColor + " ▙\u001b[0m";
+  string legFrame = boardColor + "▟█▙\u001b[0m";
 
   int ROWS = board.size();
 
@@ -47,16 +52,18 @@ void displayBoard(vector<vector<string>> board, short COLS, bool AbilityModeON){
   for(int r = 0; r < ROWS ; r++){ 
     cout << " " << boardFrame << " "; // left board frame
 
-    for(int c = 0 ; c < COLS ; c++)
+    for(int c = 0 ; c < COLS ; c++){
       cout << board[r][c]; 
+    }
 
     cout << " " << boardFrame; // right board frame
 
     // Prints row numbers to identify rows
-    if (AbilityModeON) 
-      cout << " " << r << endl;
-    else
-      cout << endl; 
+    if (AbilityModeON){
+      cout << " " << r;
+    }
+    
+    cout << endl;
   } 
 
   // Prints "legs" of board
@@ -65,9 +72,10 @@ void displayBoard(vector<vector<string>> board, short COLS, bool AbilityModeON){
     cout << "\u001b[38;5;21m▔▔▔";
   cout << legFrame;
 
-  cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n";// Spacer
+  // Prints board floor
+  cout << floorColor << boardFloor << resetColor;
 
-  displayBottom(ROWS+3); // Accomodates board size + Adittional UI space
+  displayBottom(ROWS+4); // Accomodates board size + Adittional UI space
 }
 
 int RUN_GAME(bool isPractice, mark P1, mark P2){
@@ -80,7 +88,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
   // FALTA setw 
   displayTop();
   cout << "\x1b[1mRULES\x1b[22m\n\n"
-       << "1. Choose the column # to place your mark.\n"
+       << setw(25) << "1. Choose the column # to place your mark.\n"
        << "2. Marks can be connected diagonally, vertcally, or horizontally.\n"
        << "3. First player to connect four marks in a row wins the game.\n ";
 
@@ -164,23 +172,29 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
 
   /// Declaration of game variables ///
 
-  bool isWinner = false; // Determines if the game has a winner or not
+  // bool isWinner = false; // Determines if the game has a winner or not
   int activePlayer = 1; // determines which player is playing
-  int inputColumn; // specified column index by player
+  int inputCol; // specified column index by player
   int inputRow; // specified column index by player 
-  short row = ROWS - 1 ; //bottom row index
 
   // Column and row delete abilities (these will determine the # of ability uses)
-  int colDel_P1 = 1, rowDel_P1 = 1; 
-  int colDel_P2 = 1, rowDel_P2 = 1;
+  const int abilityUses = 1;
+  
+  int colDel_P1 = abilityUses, 
+      rowDel_P1 = abilityUses;
+  
+  int colDel_P2 = abilityUses, 
+      rowDel_P2 = abilityUses;
 
   // Alternating Variables (these alternate with each iteration of while cycle)
   string player_mark; // writes the designated players mark
-  int *colDel = &colDel_P1; // # of ability uses for designated player 
-  int *rowDel = &rowDel_P1; // # of ability uses for designated player 
+  int *colDel; // # of ability uses for designated player 
+  int *rowDel; // # of ability uses for designated player 
 
 
 ///// GAME BEGINS HERE /////
+
+  
   while (true){
     
     /* The following condition alternates between players each iteration.
@@ -196,16 +210,34 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
       rowDel = &rowDel_P2;
     }
 
+    short row = ROWS - 1 ; //bottom row index
+    
+    // Check if 4 in a row
+    // counter de cuantas jugadas has hecho
     if (isFourInARow(board, COLS, player_mark)){
       displayBoard(board, COLS, false); 
       break;
     }
 
-    bool usedAbility = false; // Will prevent writing a mark if ability is used
-    row = ROWS - 1; // Resets row index
+    // Check if board is full
+    bool boardisFull = true;
+    for (int c = 0 ; c < COLS; c++){
+      if(board[0][c] == "[ ]")
+        boardisFull = false;
+    }
+
+    if (boardisFull){
+      cout << "Board is full, game is a tie.";
+      cout << "\n\n(Press ENTER to return to MAIN MENU)" << endl;
+      cin.ignore(); cin.get(); 
+
+      return 0;
+    }
     
     // Ability Mode input
-    if (abilityModeON && !isWinner){ 
+    bool usedAbility = false; // Will prevent writing a mark if ability is used
+    
+    if (abilityModeON){ 
 
       do
       {
@@ -233,7 +265,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
         // Place Mark in Column
           case 49: 
             cout << "Choose a column: "; 
-            cin >> inputColumn;
+            cin >> inputCol;
 
             break;
 
@@ -243,9 +275,9 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
             *colDel -= 1;
 
             cout << "Choose a column to delete: "; 
-            cin >> inputColumn;
+            cin >> inputCol;
 
-            deleteColumn(board, COLS, inputColumn);
+            deleteColumn(board, COLS, inputCol);
             displayBoard(board, COLS, abilityModeON);
       
             break;
@@ -265,48 +297,46 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
         }
         clrln();
       }
-      while (inputColumn < 0 || inputColumn >= COLS);      
+      while (inputCol < 0 || inputCol >= COLS);      
     }
     // Classic mode and Blind Mode Input
 
-    if (!abilityModeON && !isWinner){
+    if (not abilityModeON ){
       do{
       cout << "Player " << activePlayer << " (" << player_mark 
           << ") enter a column #: ";
-      cin >> inputColumn;
+      cin >> inputCol;
       clrln();
       }
-      while (inputColumn < 0 || inputColumn >= COLS);
+      while (inputCol < 0 || inputCol >= COLS);
     }
 
-    // NOTE!!!!!!!!!!!!: create conditition if board is full
-
-    // NOTE!!!!!!!!!!!!: create function to check if board is full. 
-
+    
     //If element isnt empty at highest row, then the column must be full
-    if (board[0][inputColumn] != "[ ]" && !isWinner)
+    if (board[0][inputCol] != "[ ]" )
     {
       do{
       clrln();
       cout << "Selected column is full, choose another: ";
-      cin >> inputColumn;
+      cin >> inputCol;
       }
-      while(board[0][inputColumn] != "[ ]");
+      while(board[0][inputCol] != "[ ]");
     }
 
     /* If element at index is occupied, change row to one level higher
        until empty element is found */
-    if (board[row][inputColumn] != "[ ]" && !isWinner)
-      do row--; while(board[row][inputColumn] != "[ ]");
+    if (board[row][inputCol] != "[ ]" )
+      do row--; while(board[row][inputCol] != "[ ]");
 
     // If element at index is empty and ability was NOT used, write mark
-    if (board[row][inputColumn] == "[ ]" && !usedAbility && !isWinner){
-      board[row][inputColumn] = "[" + player_mark + "]";
+    if (board[row][inputCol] == "[ ]" && !usedAbility){
+      
+      board[row][inputCol] = "[" + player_mark + "]";
       displayBoard(board, COLS, abilityModeON);
     }
 
     // Display winner 
-    if (!isWinner && isFourInARow(board, COLS, player_mark)){
+    if (isFourInARow(board, COLS, player_mark)){
       displayBoard(board, COLS, false);
       break;
     }
@@ -318,22 +348,25 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
        activePlayer = 1; 
   }
 
-  // Add Point to winning player
-  int point = 0;
+  if (not isPractice){
+    // Add Point to winning player
+    int point = 0;
+    
+    ifstream getPoints("records/P" + to_string(activePlayer)+ "points.txt");
+    getPoints >> point; // take existing points
+    getPoints.close();
+    
+    point += 1; // Add 1
   
-  ifstream getPoints("records/P" + to_string(activePlayer)+ "points.txt");
-  getPoints >> point; 
-  getPoints.close();
+    ofstream writePoints("records/P" + to_string(activePlayer)+ "points.txt");
+    writePoints << point; // write to txt file
+    writePoints.close();
+  }
   
-  point += 1;            
-
-  ofstream writePoints("records/P" + to_string(activePlayer)+ "points.txt");
-  writePoints << point;
-  writePoints.close();
-
   // Display Winner
   cout << "\nPlayer " << activePlayer << " WINS!" << endl;
   cout << "\n\n(Press ENTER to return to MAIN MENU)" << endl;
   cin.ignore(); cin.get(); 
+  
   return 0;
 }

@@ -8,18 +8,23 @@ using namespace std;
 
   displayTop();
 
-  [any string output]
+  [any/all string output] 
 
-  displayBottom (# of newlines used by output);
+  displayBottom (# of newlines ("\n") used by output);
   
+*/
+
+/* Note: There is a way of reading newline escape codes using
+   string member functons .start() and .end(), however, that
+   wouldve taken much more refactoring. It is possible though.
 */
 
 // Arcade screen SIZE: 66x18
 
 // Colors
-const string border = "\x1b[38;5;20m"; // Set to blue
-const string letters = "\x1b[38;5;220m"; // Set to orange
-const string number = "\x1b[38;5;160m"; // Set to red
+const string border = "\x1b[38;5;20m"; // blue
+const string letters = "\x1b[38;5;220m"; // yellow
+const string number = "\x1b[38;5;160m"; // red
 const string reset = "\x1b[0m";
 
 void displayTop(){
@@ -65,7 +70,7 @@ void displayBottom(int newLineCount){
 
 // Display bottom of arcade machine
 
-cout << border <<
+cout << endl << border <<
   "       ▟░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▙       \n"
   "      ▟░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▙      \n"
   "     ▟▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▙     \n"

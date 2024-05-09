@@ -16,24 +16,26 @@ int main(){
   mark P2 = {"\u001b[33m", "O\x1b[0m"}; // YELLOW "O"
 
   char option;
-  
+
+  // displays menu
   do
   {
 
     displayTop();
-    cout << right << setw(42) << "1. Play ♟︎\n"
-         << setw(57) << "2. Practice [NOT IMPLEMENTED]\n"
-         << setw(45) << "3. Options ⚒︎\n"
-         << setw(35) << "4. Exit\n";
+    int dist = 34; //variable to align, used in setw 
+    cout << right << setw(dist) << "" << "1. Play ♟︎\n"
+         << setw(dist)<< "" << "2. Practice\n"
+         << setw(dist)<< "" << "3. Options ⚒︎\n"
+         << setw(dist)<< "" << "4. Exit\n";
 
-    cout << setw(38) << "Selection: ";
+    cout << endl << setw(41) << "Selection: ";
     displayBottom(10); // lo cambie a 10 a ver como se veia. estaba en 5
     
 
     cin >> option;
 
     switch(option){ // Cases are in decimal value
-
+      
       // NOT Practice game
       case 49: RUN_GAME(false, P1, P2); break;
       // Practice game
@@ -42,9 +44,10 @@ int main(){
       case 51: OPTIONS_MENU(P1, P2); break;
 
       case 52: return 0; break;
+
     } 
   }
-  while(1);
+  while(true);
 }
 
 
