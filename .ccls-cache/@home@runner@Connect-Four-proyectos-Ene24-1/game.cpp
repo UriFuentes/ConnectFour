@@ -8,6 +8,13 @@
 #include "headers/4InARowScan.h"
 using namespace std;
 
+//Ansi codes for Colors 
+const string BLUE = "\u001b[38;5;21m";
+const string GREY = "\u001b[38;5;99m";
+const string PURPLE = "\x1b[38;5;57m";
+const string DEFAULT = "\x1b[0m";
+const string BOLD = "\x1b[1m";
+
 void deleteColumn (vector<vector<string>> &board, short COLS, int column){
 
   int ROWS = board.size();
@@ -27,36 +34,48 @@ void deleteRow (vector<vector<string>> &board , short COLS, int row){
 }
 
 void displayBoard(vector<vector<string>> board, short COLS, bool AbilityModeON){
-  
-  string boardColor = "\u001b[38;5;21m"; // (BLUE)
-  string floorColor = "\u001b[38;5;241m"; // (GREY)
-  string resetColor = "\x1b[0m";
-
-  string boardFloor = "\n▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇\n\n";
-  string boardFrame = boardColor + "█\u001b[0m";
-  string LcornerFrame  = boardColor + " ▟ \u001b[0m";
-  string RcornerFrame  = boardColor + " ▙\u001b[0m";
-  string legFrame = boardColor + "▟█▙\u001b[0m";
 
   int ROWS = board.size();
+  
+  // Colors
+  string boardColor = BLUE; 
+  string floorColor = GREY; 
+  string resetColor = DEFAULT;
 
-  displayTop();
+  // Board UI components
+  string boardFloor = "▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇\n\n";
+  string boardFrame = boardColor + "█" + DEFAULT;
+  string LcornerFrame  = boardColor + " ▟" + DEFAULT;
+  string RcornerFrame  = boardColor + " ▙" + DEFAULT;
+  string legFrame = boardColor + "▟█▙" + DEFAULT;
+  string line = "▔▔▔";
 
+  // setw distances for output formatting
+  int distLcorner = 50;
+  int distRcorner = 19; 
+  int distBoardframe = 33;
+  int distLegframeL= 55;
+  int distLegframeR = 23; 
+  
+  displayTop(); 
+  
   // Prints numbers on top to identify columns
-  cout << LcornerFrame; 
-  for(int c = 0 ; c < COLS ; c++) //Iterates over each column
-    cout << " " << c << " ";
-  cout << RcornerFrame << endl; 
+  cout << right << setw(distLcorner-COLS) << LcornerFrame; 
+  for(int c = 0 ; c < COLS ; c++){ //Iterates over each column
+    cout << "  " << c << "";
+  }
+  cout << setw(distRcorner) << RcornerFrame << endl; 
 
   // Prints game board
   for(int r = 0; r < ROWS ; r++){ 
-    cout << " " << boardFrame << " "; // left board frame
-
+    // left board frame
+    cout << setw(distBoardframe-COLS) << " " << boardFrame << " "; 
+    
     for(int c = 0 ; c < COLS ; c++){
       cout << board[r][c]; 
     }
-
-    cout << " " << boardFrame; // right board frame
+    // right board frame
+    cout << " " << boardFrame; 
 
     // Prints row numbers to identify rows
     if (AbilityModeON){
@@ -67,13 +86,15 @@ void displayBoard(vector<vector<string>> board, short COLS, bool AbilityModeON){
   } 
 
   // Prints "legs" of board
-  cout << legFrame;
-  for(int c = 0 ; c < COLS ; c++)
-    cout << "\u001b[38;5;21m▔▔▔";
-  cout << legFrame;
+  cout << setw(distLegframeL-COLS) << legFrame;
+  for(int c = 0 ; c < COLS ; c++){
+    cout << BLUE << line;
+  }
+  cout << setw(distLegframeR) << legFrame << "\n";
 
   // Prints board floor
-  cout << floorColor << boardFloor << resetColor;
+  int distBoardfloor = 21; 
+  cout << right  << setw(distBoardfloor) << "" << boardFloor;
 
   displayBottom(ROWS+4); // Accomodates board size + Adittional UI space
 }
@@ -85,29 +106,29 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
 
   //OUTPUT RULES
 
-  // FALTA setw 
+   
   displayTop();
-  cout << "\x1b[1mRULES\x1b[22m\n\n"
-       << setw(25) << "1. Choose the column # to place your mark.\n"
-       << "2. Marks can be connected diagonally, vertcally, or horizontally.\n"
-       << "3. First player to connect four marks in a row wins the game.\n ";
+  cout << right << setw(42) << BOLD << "RULES" << DEFAULT << "\n\n"
+       << setw(64) << "1. Choose the column # to place your mark.\n"
+       << setw(75) << "2. Marks can be connected diagonally, vertcally, or horizontally.\n"
+       << setw(75) << "3. First player to connect four marks in a row wins the game.\n ";
 
-  cout << "\n(Press ENTER to continue)\n";
+  cout<< setw(55) << endl << "(Press ENTER to continue)\n";
   displayBottom(7);
   
   cin.ignore(); cin.get();
 
 //Display Board Size Options
-  // FALTA setw
+
   char option;
   do 
   {
     displayTop();
-    cout << "\x1b[1mChoose a Board Size:\x1b[22m\n\n"
-         << "\t1. Classic (7x6)\n"
-         << "\t2. Large (9x8)\n"
-         << "\t3. Larger (12x9)\n\n";
-    cout << "Selection: ";
+    cout << setw(37) << BOLD << "Choose a Board Size: " << DEFAULT << "\n\n"
+         << setw(51) <<  "\t1. Classic (7x6)\n"
+         << setw(51) << "\t2. Large (9x8)\n"
+         << setw(54) << "\t3. Larger (12x9)\n\n";
+    cout << setw(47) << "Selection: ";
     displayBottom(6);
     
     cin >> option;
@@ -126,16 +147,16 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
 
 //Display Game Mode Options
   
-  //FALTA SETW!!!!!!!!!!!!!
+
   
   do 
   {
     displayTop();
-    cout << "\x1b[1mChoose a Game Mode:\x1b[22m\n\n"
-         << "\t1. Classic\n"
-         << "\t2. Blinded\n"
-         << "\t3. Abilities [W.I.P]\n\n";
-    cout << "Selection: ";
+    cout << setw(37) << BOLD << "Choose a Game Mode: " << DEFAULT << "\n\n"
+         << setw(46) << "\t1. Classic\n"
+         << setw(46) <<"\t2. Blinded\n"
+         << setw(55) << "\t3. Abilities [W.I.P]\n\n";
+    cout << setw(47) << "Selection: ";
     displayBottom(6);
     
     cin >> option;
@@ -151,8 +172,8 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
 
       /* Sets both marks to purple "X", adds an additional ANSI code 
         to P2 so program can Differentiate whilst appearing the same */
-      P1 = {"\x1b[38;5;57m", "X\x1b[0m"}; 
-      P2 = {"\x1b[38;5;57m", "X\x1b[0m\x1b[0m"}; 
+      P1 = {PURPLE, "X" + DEFAULT}; 
+      P2 = {PURPLE, "X" + DEFAULT}; 
       break;
 
     case 51: // Abilities
@@ -226,9 +247,10 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
         boardisFull = false;
     }
 
+    //arreglar setw
     if (boardisFull){
-      cout << "Board is full, game is a tie.";
-      cout << "\n\n(Press ENTER to return to MAIN MENU)" << endl;
+      cout << setw(59) <<  "Board is full, game is a tie.\n\n";
+      cout << setw(62) << "(Press ENTER to return to MAIN MENU)" << endl;
       cin.ignore(); cin.get(); 
 
       return 0;
@@ -303,7 +325,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
 
     if (not abilityModeON ){
       do{
-      cout << "Player " << activePlayer << " (" << player_mark 
+      cout << setw(32) <<  "Player " << activePlayer << " (" << player_mark 
           << ") enter a column #: ";
       cin >> inputCol;
       clrln();
@@ -317,7 +339,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
     {
       do{
       clrln();
-      cout << "Selected column is full, choose another: ";
+      cout << setw(20) << "Selected column is full, choose another: ";
       cin >> inputCol;
       }
       while(board[0][inputCol] != "[ ]");
@@ -352,20 +374,24 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
     // Add Point to winning player
     int point = 0;
     
-    ifstream getPoints("records/P" + to_string(activePlayer)+ "points.txt");
+    ifstream getPoints("records/P" + to_string(activePlayer) + "points.txt");
     getPoints >> point; // take existing points
     getPoints.close();
     
     point += 1; // Add 1
   
-    ofstream writePoints("records/P" + to_string(activePlayer)+ "points.txt");
+    ofstream writePoints("records/P" + to_string(activePlayer) + "points.txt");
     writePoints << point; // write to txt file
     writePoints.close();
   }
+
+  // distance for the setw
+  int dist = 42;
+  int dist2 = 61;
   
   // Display Winner
-  cout << "\nPlayer " << activePlayer << " WINS!" << endl;
-  cout << "\n\n(Press ENTER to return to MAIN MENU)" << endl;
+  cout << right << setw(dist) << endl << "Player " << activePlayer << " WINS!" << endl;
+  cout << setw(dist2) << endl << endl << "(Press ENTER to return to MAIN MENU)" << endl;
   cin.ignore(); cin.get(); 
   
   return 0;

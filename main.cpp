@@ -10,10 +10,16 @@
 using namespace std;
 
 int main(){
-  
+  //Ansi color codes 
+  const string RED = "\u001b[31m";
+  const string YELLOW = "\u001b[33m";
+
+  //Ansi code to display O
+  const string ZERO = "O\x1b[0m";
+
   //Default Variables for player marks
-  mark P1 = {"\u001b[31m", "O\x1b[0m"}; // RED "O"
-  mark P2 = {"\u001b[33m", "O\x1b[0m"}; // YELLOW "O"
+  mark P1 = {RED, ZERO}; // RED "O"
+  mark P2 = {YELLOW, ZERO}; // YELLOW "O"
 
   char option;
 

@@ -11,4 +11,7 @@ import time library
 
 make like a console 
 
-
+//////////////////////
+terminar setw
+cambiar los colores a variables constantes
+input validation 

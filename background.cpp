@@ -21,11 +21,16 @@ using namespace std;
 
 // Arcade screen SIZE: 66x18
 
+//ANSI codes
+const string BLUE = "\x1b[38;5;20m";
+const string YELLOW = "\x1b[38;5;220m";
+const string RED = "\x1b[38;5;160m";
+const string DEFAULT = "\x1b[0m";
 // Colors
-const string border = "\x1b[38;5;20m"; // blue
-const string letters = "\x1b[38;5;220m"; // yellow
-const string number = "\x1b[38;5;160m"; // red
-const string reset = "\x1b[0m";
+const string border = BLUE;
+const string letters = YELLOW;
+const string number =  RED;
+const string reset = DEFAULT;
 
 void displayTop(){
 

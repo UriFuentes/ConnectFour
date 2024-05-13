@@ -9,6 +9,7 @@ struct mark{
   string color;
   string character;
   string mark = color + character;
+  int points;
 };
 
 // Note: Following Function erases arcade "screen", NOT the entire program's screen

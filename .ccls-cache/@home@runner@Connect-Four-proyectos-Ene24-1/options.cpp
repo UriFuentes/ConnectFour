@@ -5,6 +5,19 @@
 #include "headers/mark.h"
 using namespace std;
 
+//Ansi codes
+const string RED = "\u001b[31m";
+const string GREEN = "\u001b[32m";
+const string YELLOW = "\u001b[33m";
+const string BLUE = "\u001b[34m";
+const string MAGENTA = "\u001b[35m";
+const string CYAN = "\u001b[36m";
+const string DEFAULT = "\u001b[0m";
+const string BOLD = "\x1b[1m";
+const string COLOR_PLUGIN = "\u001b[3";
+const string ANSI_END = "m";
+
+
 int OPTIONS_MENU(mark &P1, mark &P2){
 
   // Used for Resetting player scores
@@ -19,17 +32,17 @@ int OPTIONS_MENU(mark &P1, mark &P2){
       (warning("Marks are identical!\n\n"));
 
     char option;
-    cout << right << setw(55) <<"\x1b[1mOptions\x1b[22m\n\n";
+    cout << right << setw(43) << BOLD << "Options" <<  DEFAULT << "\n\n";
 
-    int dist = 33;
+    int dist = 55;
 
-    cout << right <<setw(dist) << "\t1. Change Colors\n"
-         <<setw(dist) <<  "\t2. Change Characters\n"
-          <<setw(dist) << "\t3. Reset player Scores\n"
-         <<setw(dist) << "\t4. Return to MAIN MENU\n";
+    cout << right <<setw(dist -6) << "\t1. Change Colors\n"
+         <<setw(dist- 4) <<  "\t2. Change Characters\n"
+         <<setw(dist) <<  "\t3. Reset player Scores\n"
+         <<setw(dist) <<  "\t4. Return to MAIN MENU\n";
 
     cout << setw(47) << endl << "Selection: ";
-    displayBottom(10); //lo cambie a 10 estaba en 8
+    displayBottom(12); 
     
     cin >> option;
 
@@ -45,8 +58,7 @@ int OPTIONS_MENU(mark &P1, mark &P2){
         do{
           displayTop();
           cout << right << setw(52) <<"Reset Player Scores\n";
-          cout << setw(67) << endl;
-          warning("Are you sure you want to delete ALL scores? (Y/n): ");
+          cout << setw(77) << RED + "Are you sure you want to delete ALL scores?" + DEFAULT + "(Y/n): ";
           displayBottom(1);
           
           cin >> answer;
@@ -88,27 +100,23 @@ int OPTIONS_MENU(mark &P1, mark &P2){
 
 
 void COLORS_MENU(mark &P1, mark &P2){
-
-  // List of available colors in with ANSI codes
-  //cambiar colores a variables const
-  string colorMenu = 
-     "Available colors:\n"
-     "\t1.\u001b[31m Red\u001b[0m\n"
-     "\t2.\u001b[32m Green\u001b[0m\n"
-     "\t3.\u001b[33m Yellow\u001b[0m\n"
-     "\t4.\u001b[34m Blue\u001b[0m\n"
-     "\t5.\u001b[35m Magenta\u001b[0m\n"
-     "\t6.\u001b[36m Cyan\u001b[0m\n"
-     "\t7. White (Default)\n"
-     "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
-
+  
   char option;
   /////// PLAYER 1 SELECTION ///////
   do
   { 
     displayTop();
-    cout << colorMenu;
-    cout << "Player 1 Selection: "; 
+    cout << right << setw(31) << "" <<  "Available colors:\n\n" ;
+    cout <<  setw(50) << "\t1." + RED + "Red" + DEFAULT + "\n"
+         << setw(50) <<  "\t2." + GREEN + "Green" + DEFAULT + "\n"
+         << setw(54) << "\t3." + YELLOW + "Yellow" + DEFAULT + "\n"
+         << setw(50) << "\t4." + BLUE + "Blue" + DEFAULT + "\n"
+         << setw(54) <<  "\t5." + MAGENTA + "Magenta" + DEFAULT + "\n"
+         << setw(50) << "\t6." + CYAN + "Cyan" + DEFAULT + "\n"
+         << setw(55) <<  "\t7. White (Default)\n\n"
+         << setw(63) <<   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+    
+    cout << setw(51) << "Player 1 Selection: "; 
     displayBottom(10);
     
     cin >> option;
@@ -118,16 +126,24 @@ void COLORS_MENU(mark &P1, mark &P2){
   while(option > 55 || option < 49);
 
   // Plug in input into ANSI Code, adding such to P1_color
-  P1.color = "\u001b[3" + to_string(option - 48) + "m";
+  P1.color = COLOR_PLUGIN + to_string(option - 48) + ANSI_END;
   P1.mark = P1.color + P1.character;
 
   /////// PLAYER 2 SELECTION ///////
   do
   { 
     displayTop();
-    cout << colorMenu;
-    cout << "Player 1 Selection: [" << P1.mark << "]\n";
-    cout << "Player 2 Selection: "; 
+    cout << right << setw(31) << "" <<  "Available colors:\n\n" ;
+    cout <<  setw(50) << "\t1." + RED + "Red" + DEFAULT + "\n"
+         << setw(50) <<  "\t2." + GREEN + "Green" + DEFAULT + "\n"
+         << setw(54) << "\t3." + YELLOW + "Yellow" + DEFAULT + "\n"
+         << setw(50) << "\t4." + BLUE + "Blue" + DEFAULT + "\n"
+         << setw(54) <<  "\t5." + MAGENTA + "Magenta" + DEFAULT + "\n"
+         << setw(50) << "\t6." + CYAN + "Cyan" + DEFAULT + "\n"
+         << setw(55) <<  "\t7.White (Default)\n\n"
+         << setw(63) <<   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+
+    cout << setw(51) << "Player 2 Selection: "; 
     displayBottom(10);
     
     cin >> option;
@@ -137,59 +153,56 @@ void COLORS_MENU(mark &P1, mark &P2){
   while(option > 55 || option < 49);
 
   // Plug in input into ANSI Code, adding such to P2_color
-  P2.color = "\u001b[3" + to_string(option - 48) + "m";
+  P2.color = COLOR_PLUGIN + to_string(option - 48) + ANSI_END;
   P2.mark = P2.color + P2.character;
 
   // Deletes line and writes mark with selected color
   clrln(); 
-  cout << "Player 2 Selection: [" << P2.mark << "]";
+  cout << setw(51) << "Player 1 Selection: [" << P1.mark << "]\n";
+  cout << setw(51) << "Player 2 Selection: [" << P2.mark << "]";
 
   // Stop Gap
-  cout << "\n\n(Press ENTER to return to OPTIONS MENU)" << endl;
+  cout << setw(62) << endl << endl<< "(Press ENTER to return to OPTIONS MENU)" << endl;
   cin.ignore(); cin.get(); 
 }
 
 
 
 void CHARS_MENU(mark &P1, mark &P2){
-// FALTA setw
-  string iconMenu = 
-     "Available Icons:\n\n"
-     "\t1. ★\n"
-     "\t2. ❆\n"
-     "\t3. ✦\n"
-     "\t4. ♡\n"
-     "\t5. ♫\n"
-     "\t6. ☽\n"
-     "\t7. ✿\n"
-     "\t8. A-Z Characters [Not Coded]\n"
-     "\t9. Paste your own [Not Coded]\n"
-     "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
-
+   
   char option;
   /////// PLAYER 1 SELECTION ///////
   do
   {
     displayTop();
-    cout << iconMenu;
-    cout << "Player 1 Selection: "; 
+    cout << right << setw(50) <<"Available Icons:\n\n";
+     cout << setw(41) << "\t1. ★\n";
+     cout << setw(41) << "\t2. ❆\n";
+     cout << setw(41) << "\t3. ✦\n";
+     cout << setw(41) <<  "\t4. ♡\n";
+     cout << setw(41) << "\t5. ♫\n";
+     cout << setw(41) << "\t6. ☽\n";
+     cout << setw(42) << "\t7. ✿\n\n";
+     cout << setw(63) <<  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+
+    cout << setw(51) << "Player 1 Selection: "; 
     displayBottom(12);
     
     cin >> option;
-    if(option > 57 || option < 49)
+    if(option > 55 || option < 49)
       clrln();
   }
-  while(option > 57 || option < 49);
+  while(option > 55 || option < 49);
 
   // Switch for Predefined icons
   switch(option){
-    case 49: P1.character = "★\u001b[0m"; break;
-    case 50: P1.character = "❆\u001b[0m"; break;
-    case 51: P1.character = "✦\u001b[0m"; break;
-    case 52: P1.character = "♡\u001b[0m"; break;
-    case 53: P1.character = "♫\u001b[0m"; break;
-    case 54: P1.character = "☽\u001b[0m"; break;
-    case 55: P1.character = "✿\u001b[0m"; break; 
+    case 49: P1.character = "★" + DEFAULT; break;
+    case 50: P1.character = "❆" + DEFAULT; break;
+    case 51: P1.character = "✦" + DEFAULT; break;
+    case 52: P1.character = "♡" + DEFAULT; break;
+    case 53: P1.character = "♫" + DEFAULT; break;
+    case 54: P1.character = "☽" + DEFAULT; break;
+    case 55: P1.character = "✿" + DEFAULT; break; 
   }
 
   P1.mark = P1.color + P1.character;
@@ -198,35 +211,44 @@ void CHARS_MENU(mark &P1, mark &P2){
   do
   {
     displayTop();
-    cout << iconMenu;
-    cout << "Player 1 Selection: [" << P1.mark << "]\n";
-    cout << "Player 2 Selection: ";
+    cout << right << setw(50) <<"Available Icons:\n\n";
+     cout << setw(41) << "\t1. ★\n";
+     cout << setw(41) << "\t2. ❆\n";
+     cout << setw(41) << "\t3. ✦\n";
+     cout << setw(41) <<  "\t4. ♡\n";
+     cout << setw(41) << "\t5. ♫\n";
+     cout << setw(41) << "\t6. ☽\n";
+     cout << setw(42) << "\t7. ✿\n\n";
+     cout << setw(62) <<  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+
+    cout << setw(51) << "Player 1 Selection: [" << P1.mark << "]\n";
+    cout << setw(51) << "Player 2 Selection: ";
     displayBottom(12);
     
     cin >> option;
-    if(option > 57 || option < 49)
+    if(option > 55 || option < 49)
       clrln();
   }
-  while(option > 57 || option < 49);
+  while(option > 55 || option < 49);
 
   // Switch for Predefined icons
   switch(option){
-    case 49: P2.character = "★\u001b[0m"; break;
-    case 50: P2.character = "❆\u001b[0m"; break;
-    case 51: P2.character = "✦\u001b[0m"; break;
-    case 52: P2.character = "♡\u001b[0m"; break;
-    case 53: P2.character = "♫\u001b[0m"; break;
-    case 54: P2.character = "☽\u001b[0m"; break;
-    case 55: P2.character = "✿\u001b[0m"; break;
+    case 49: P2.character = "★" + DEFAULT; break;
+    case 50: P2.character = "❆" + DEFAULT; break;
+    case 51: P2.character = "✦" + DEFAULT; break;
+    case 52: P2.character = "♡" + DEFAULT; break;
+    case 53: P2.character = "♫" + DEFAULT; break;
+    case 54: P2.character = "☽" + DEFAULT; break;
+    case 55: P2.character = "✿" + DEFAULT; break;
   }
 
   P2.mark = P2.color + P2.character;
 
   // Deletes line and writes mark
   clrln(); 
-  cout << "Player 2 Selection: [" << P2.mark << "]";
+  cout << setw(51) << "Player 2 Selection: [" << P2.mark << "]";
 
   // Stop Gap
-  cout << "\n\n(Press ENTER to return to OPTIONS MENU)" << endl;
+  cout << setw(62) << endl << endl << "(Press ENTER to return to OPTIONS MENU)" << endl;
   cin.ignore(); cin.get();
 }

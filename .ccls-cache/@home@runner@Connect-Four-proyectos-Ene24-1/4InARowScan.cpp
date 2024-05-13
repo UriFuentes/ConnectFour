@@ -9,6 +9,9 @@ bool isFourInARow (vector<vector<string>> &board, short COLS, string mark){
   short mark_counter = 0; // Keeps track of how many marks in a row
   short ROWS = board.size();
 
+//Ansi codes 
+  const string HIGHLIGHT = "[\x1b[7m";
+  const string DEFAULT = "]\x1b[27m";
 ////// SCAN ROWS //////
 
   for (short c = 0 ; c < ROWS; c++){
@@ -22,7 +25,7 @@ bool isFourInARow (vector<vector<string>> &board, short COLS, string mark){
         if (mark_counter >= 4){
 
           // Highlights all the 4 marks in a row by going backwards in COLS index
-          do board[c][r--] = "[\x1b[7m" + mark + "]\x1b[27m"; 
+          do board[c][r--] = HIGHLIGHT + mark + DEFAULT; 
           while(board[c][r] == "[" + mark + "]");
 
         return true; // 4 in a row = true
@@ -48,7 +51,7 @@ bool isFourInARow (vector<vector<string>> &board, short COLS, string mark){
         if (mark_counter >= 4){
 
           // Highlights all the 4 marks in a row by going backwards in ROWS index
-          do board[r--][c] = "[\x1b[7m" + mark + "]\x1b[27m"; 
+          do board[r--][c] = HIGHLIGHT + mark + DEFAULT; 
           while(r >= 0 && board[r][c] == "[" + mark + "]");
 
           return true; 
@@ -78,7 +81,7 @@ bool isFourInARow (vector<vector<string>> &board, short COLS, string mark){
       if (mark_counter >= 4){
 
         // Highlights all the 4 marks in a row
-        do board[i--][j--] = "[\x1b[7m" + mark + "]\x1b[27m"; 
+        do board[i--][j--] = HIGHLIGHT + mark + DEFAULT; 
         while(i >= 0 && board[i][j] == "[" + mark + "]");
         
         return true; 
@@ -102,7 +105,7 @@ bool isFourInARow (vector<vector<string>> &board, short COLS, string mark){
 
       if (mark_counter >= 4){
         // Highlights all the 4 marks in a row
-        do board[i--][j++] = "[\x1b[7m" + mark + "]\x1b[27m"; 
+        do board[i--][j++] = HIGHLIGHT + mark + DEFAULT; 
         while(i >= 0 && board[i][j] == "[" + mark + "]");
 
         return true; 
@@ -131,7 +134,7 @@ from the rows on either end of the board instead of the top of the board */
 
       if (mark_counter >= 4){
         // Highlights all the 4 marks in a row
-        do board[i--][j--] = "[\x1b[7m" + mark + "]\x1b[27m"; 
+        do board[i--][j--] = HIGHLIGHT + mark + DEFAULT; 
         while(i >= 0 && board[i][j] == "[" + mark + "]");
 
         return true; 
@@ -156,7 +159,7 @@ from the rows on either end of the board instead of the top of the board */
 
       if (mark_counter >= 4){
         // Highlights all the 4 marks in a row
-        do board[i--][j++] = "[\x1b[7m" + mark + "]\x1b[27m"; 
+        do board[i--][j++] = HIGHLIGHT + mark + DEFAULT; 
         while(i >= 0 && board[i][j] == "[" + mark + "]");
 
         return true; 
