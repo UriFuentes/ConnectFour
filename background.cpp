@@ -26,6 +26,7 @@ const string BLUE = "\x1b[38;5;20m";
 const string YELLOW = "\x1b[38;5;220m";
 const string RED = "\x1b[38;5;160m";
 const string DEFAULT = "\x1b[0m";
+
 // Colors
 const string border = BLUE;
 const string letters = YELLOW;
@@ -59,10 +60,7 @@ void displayTop(){
 
 }
   
-
-
 void displayBottom(int newLineCount){
-
 
 /* Using newLineCount, check how many lines are 
    left to complete the 18 lines of the screen */
@@ -85,8 +83,8 @@ cout << endl << border <<
   " ▟██████████████████████████████████████████████████████████████████████████████▙ \n"
   "▟████████████████████████████████████████████████████████████████████████████████▙\n"
   "██████████████████████████████████████████████████████████████████████████████████\n"
-  "█▌                                                                Gladymar Colon▐█\n"
-  "█▌                                                                 Uriel Fuentes▐█\n"
+  "█▌VERSION: 1.0                                                    Gladymar Colon▐█\n"
+  "█▌SERIAL: CCOM3033-001                                             Uriel Fuentes▐█\n"
   "█▌                                                                Jose Rodriguez▐█\n"
   "█▌                                                                              ▐█\n"
   "█▌                                                                              ▐█\n"

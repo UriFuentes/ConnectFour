@@ -35,18 +35,18 @@ int main(){
          << setw(dist)<< "" << "4. Exit\n";
 
     cout << endl << setw(41) << "Selection: ";
-    displayBottom(10); // lo cambie a 10 a ver como se veia. estaba en 5
-    
+    displayBottom(10);
 
     cin >> option;
 
     switch(option){ // Cases are in decimal value
       
       // NOT Practice game
+      // Functions are located in game.cpp
       case 49: RUN_GAME(false, P1, P2); break;
       // Practice game
       case 50: RUN_GAME(true, P1, P2); break; 
-
+      //Function is located in option.cpp
       case 51: OPTIONS_MENU(P1, P2); break;
 
       case 52: return 0; break;

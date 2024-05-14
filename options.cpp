@@ -28,8 +28,9 @@ int OPTIONS_MENU(mark &P1, mark &P2){
   do{
     
     displayTop();
-    if (P1.mark == P2.mark)
+    if (P1.mark == P2.mark){
       (warning("Marks are identical!\n\n"));
+    }
 
     char option;
     cout << right << setw(43) << BOLD << "Options" <<  DEFAULT << "\n\n";
@@ -51,25 +52,27 @@ int OPTIONS_MENU(mark &P1, mark &P2){
 
       case 50: clrscr(); CHARS_MENU(P1, P2); break;
 
-      case 51:
+      case 51: 
         
         clrscr();
         
         do{
           displayTop();
-          cout << right << setw(52) <<"Reset Player Scores\n";
-          cout << setw(77) << RED + "Are you sure you want to delete ALL scores?" + DEFAULT + "(Y/n): ";
-          displayBottom(1);
+          cout << right << setw(52) <<"Reset Player Scores\n\n";
+          cout << setw(77) << RED + "Are you sure you want to delete ALL scores?" + DEFAULT + " (Y/n): ";
+          displayBottom(5);
           
           cin >> answer;
   
           if (answer == "Y" || answer == "y"){
-            // Open files, delete in process, close
-            ofstream delete1("records/P1points.txt"); 
-            delete1.close();
+            // Open files, write 0, close
+            ofstream deleteP1("records/P1points.txt");
+            deleteP1 << 0;
+            deleteP1.close();
             
-            ofstream delete2("records/P2points.txt"); 
-            delete2.close();
+            ofstream deleteP2("records/P2points.txt");
+            deleteP2 << 0;
+            deleteP2.close();
           }
   
         }
@@ -107,14 +110,14 @@ void COLORS_MENU(mark &P1, mark &P2){
   { 
     displayTop();
     cout << right << setw(31) << "" <<  "Available colors:\n\n" ;
-    cout <<  setw(50) << "\t1." + RED + "Red" + DEFAULT + "\n"
-         << setw(50) <<  "\t2." + GREEN + "Green" + DEFAULT + "\n"
-         << setw(54) << "\t3." + YELLOW + "Yellow" + DEFAULT + "\n"
-         << setw(50) << "\t4." + BLUE + "Blue" + DEFAULT + "\n"
-         << setw(54) <<  "\t5." + MAGENTA + "Magenta" + DEFAULT + "\n"
-         << setw(50) << "\t6." + CYAN + "Cyan" + DEFAULT + "\n"
-         << setw(55) <<  "\t7. White (Default)\n\n"
-         << setw(63) <<   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+    cout << setw(50) << "\t1. " + RED + "Red" + DEFAULT + "\n"
+         << setw(54) << "\t2. " + GREEN + "Green" + DEFAULT + "\n"
+         << setw(54) << "\t3. " + YELLOW + "Yellow" + DEFAULT + "\n"
+         << setw(50) << "\t4. " + BLUE + "Blue" + DEFAULT + "\n"
+         << setw(54) << "\t5. " + MAGENTA + "Magenta" + DEFAULT + "\n"
+         << setw(50) << "\t6. " + CYAN + "Cyan" + DEFAULT + "\n"
+         << setw(55) << "\t7. White (Default)\n\n"
+         << setw(63) << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n";
     
     cout << setw(51) << "Player 1 Selection: "; 
     displayBottom(10);
@@ -133,15 +136,15 @@ void COLORS_MENU(mark &P1, mark &P2){
   do
   { 
     displayTop();
-    cout << right << setw(31) << "" <<  "Available colors:\n\n" ;
-    cout <<  setw(50) << "\t1." + RED + "Red" + DEFAULT + "\n"
-         << setw(50) <<  "\t2." + GREEN + "Green" + DEFAULT + "\n"
-         << setw(54) << "\t3." + YELLOW + "Yellow" + DEFAULT + "\n"
-         << setw(50) << "\t4." + BLUE + "Blue" + DEFAULT + "\n"
-         << setw(54) <<  "\t5." + MAGENTA + "Magenta" + DEFAULT + "\n"
-         << setw(50) << "\t6." + CYAN + "Cyan" + DEFAULT + "\n"
-         << setw(55) <<  "\t7.White (Default)\n\n"
-         << setw(63) <<   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+    cout << setw(31) << "" <<  "Available colors:\n\n" ;
+    cout << setw(50) << "\t1. " + RED + "Red" + DEFAULT + "\n"
+         << setw(54) << "\t2. " + GREEN + "Green" + DEFAULT + "\n"
+         << setw(54) << "\t3. " + YELLOW + "Yellow" + DEFAULT + "\n"
+         << setw(50) << "\t4. " + BLUE + "Blue" + DEFAULT + "\n"
+         << setw(54) << "\t5. " + MAGENTA + "Magenta" + DEFAULT + "\n"
+         << setw(50) << "\t6. " + CYAN + "Cyan" + DEFAULT + "\n"
+         << setw(55) << "\t7. White (Default)\n\n"
+         << setw(63) << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n";
 
     cout << setw(51) << "Player 2 Selection: "; 
     displayBottom(10);

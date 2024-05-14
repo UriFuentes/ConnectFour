@@ -105,13 +105,12 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
   bool abilityModeON = false; // Checks if player selected ability gamemode
 
   //OUTPUT RULES
-
    
   displayTop();
-  cout << right << setw(42) << BOLD << "RULES" << DEFAULT << "\n\n"
-       << setw(64) << "1. Choose the column # to place your mark.\n"
+  cout << setw(42) << BOLD << "RULES" << DEFAULT << "\n\n"
+       << setw(52) << "1. Choose the column # to place your mark.\n"
        << setw(75) << "2. Marks can be connected diagonally, vertcally, or horizontally.\n"
-       << setw(75) << "3. First player to connect four marks in a row wins the game.\n ";
+       << setw(72) << "3. First player to connect four marks in a row wins the game.\n ";
 
   cout<< setw(55) << endl << "(Press ENTER to continue)\n";
   displayBottom(7);
@@ -155,7 +154,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
     cout << setw(37) << BOLD << "Choose a Game Mode: " << DEFAULT << "\n\n"
          << setw(46) << "\t1. Classic\n"
          << setw(46) <<"\t2. Blinded\n"
-         << setw(55) << "\t3. Abilities [W.I.P]\n\n";
+         << setw(50) << "\t3. Abilities\n\n";
     cout << setw(47) << "Selection: ";
     displayBottom(6);
     
@@ -173,7 +172,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
       /* Sets both marks to purple "X", adds an additional ANSI code 
         to P2 so program can Differentiate whilst appearing the same */
       P1 = {PURPLE, "X" + DEFAULT}; 
-      P2 = {PURPLE, "X" + DEFAULT}; 
+      P2 = {PURPLE, "X" + DEFAULT + DEFAULT}; 
       break;
 
     case 51: // Abilities
@@ -247,10 +246,9 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
         boardisFull = false;
     }
 
-    //arreglar setw
     if (boardisFull){
-      cout << setw(59) <<  "Board is full, game is a tie.\n\n";
-      cout << setw(62) << "(Press ENTER to return to MAIN MENU)" << endl;
+      cout << setw(55) <<  "Board is full, game is a tie.\n\n";
+      cout << setw(58) << "(Press ENTER to return to MAIN MENU)" << endl;
       cin.ignore(); cin.get(); 
 
       return 0;
@@ -263,18 +261,18 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
 
       do
       {
-        cout << "Player " << activePlayer << " (" << player_mark 
+        cout << right << setw(31) << "Player " << activePlayer << " (" << player_mark 
             << ") , choose an action: \n\n";
 
-        cout << "\t1. Place mark\n"
-             << "\t2. Delete Column (" << *colDel << " Remaining)\n"
-             << "\t3. Delete Row    (" << *rowDel << " Remaining)\n\n\n";
+        cout << setw(41) << "\t1. Place mark\n"
+             << setw(45) << "\t2. Delete Column (" << *colDel << " Remaining)\n"
+             << setw(46) << "\t3. Delete Row    (" << *rowDel << " Remaining)\n\n\n";
         // displayBottom(ROWS+7); // (Takes into account board)
 
         do
         {
           clrln();
-          cout << "Selection: ";
+          cout << setw(45) << "Selection: ";
           cin >> option;
 
           // Input validation if abilities are used up
@@ -286,7 +284,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
         switch(option){
         // Place Mark in Column
           case 49: 
-            cout << "Choose a column: "; 
+            cout << setw(45) << "Choose a column: "; 
             cin >> inputCol;
 
             break;
@@ -296,7 +294,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
             usedAbility = true;
             *colDel -= 1;
 
-            cout << "Choose a column to delete: "; 
+            cout << setw(53) << "Choose a column to delete: "; 
             cin >> inputCol;
 
             deleteColumn(board, COLS, inputCol);
@@ -309,7 +307,7 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
             usedAbility = true;
             *rowDel -= 1;
 
-            cout << "Choose a row to delete: "; 
+            cout << setw(53) << "Choose a row to delete: "; 
             cin >> inputRow;
 
             deleteRow(board, COLS, inputRow);
@@ -372,26 +370,39 @@ int RUN_GAME(bool isPractice, mark P1, mark P2){
 
   if (not isPractice){
     // Add Point to winning player
-    int point = 0;
+    int winnerPoints = 0;
     
     ifstream getPoints("records/P" + to_string(activePlayer) + "points.txt");
-    getPoints >> point; // take existing points
+    getPoints >> winnerPoints; // take existing points
     getPoints.close();
     
-    point += 1; // Add 1
+    winnerPoints += 1; // Add 1
   
     ofstream writePoints("records/P" + to_string(activePlayer) + "points.txt");
-    writePoints << point; // write to txt file
+    writePoints << winnerPoints; // write to txt file
     writePoints.close();
   }
 
+  // Display total points
+  int P1points, P2points;
+  
+  ifstream getP1Points("records/P1points.txt");
+  getP1Points >> P1points;
+  ifstream getP2Points("records/P2points.txt");
+  getP2Points >> P2points;
+
+
   // distance for the setw
-  int dist = 42;
-  int dist2 = 61;
+  int dist = 37;
+  int dist2 = 58;
   
   // Display Winner
-  cout << right << setw(dist) << endl << "Player " << activePlayer << " WINS!" << endl;
-  cout << setw(dist2) << endl << endl << "(Press ENTER to return to MAIN MENU)" << endl;
+  cout << setw(dist) << BOLD << "Player " << activePlayer << " WINS!" << DEFAULT << "\n\n";
+
+  cout << setw(dist) << "Total P1 Pts: " << P1points << endl;
+  cout << setw(dist) << "Total P2 Pts: " << P2points << endl;
+  
+  cout << "\n" << setw(dist2) << "(Press ENTER to return to MAIN MENU)" << endl;
   cin.ignore(); cin.get(); 
   
   return 0;

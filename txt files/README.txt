@@ -5,7 +5,7 @@ A two-player game where players take turns dropping colored marks into a vertica
 Authors:
 - Gladymar Colon - 801232184
 - Uriel Fuentes - 801239441
-- Jose Rodriguez - 
+- Jose Rodriguez - 801237646
 
 
 Section: 

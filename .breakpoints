@@ -4,110 +4,104 @@
       {
         "id": "008dabde-1869-470f-9990-fdec6709fd23",
         "line": 1,
-        "version": 4410,
+        "version": 4575,
         "index": 0
       }
     ],
     "game.cpp": [
       {
         "id": "b035b3ee-ac5c-4f42-bc8d-350017672ca0",
-        "line": 71,
-        "version": 5903,
-        "index": 1918
+        "line": 74,
+        "version": 7280,
+        "index": 2022
       },
       {
         "id": "5c36760b-ba14-44fc-bc7d-dc7f82c91502",
-        "line": 71,
-        "version": 5903,
-        "index": 1918
+        "line": 74,
+        "version": 7280,
+        "index": 2022
       },
       {
         "id": "fe2d5257-b2b5-4eb2-890f-128bbf012184",
-        "line": 71,
-        "version": 5903,
-        "index": 1918
+        "line": 74,
+        "version": 7280,
+        "index": 2022
       },
       {
         "id": "ea39cd85-b1d8-480e-a6b3-82b0c57d1bb0",
-        "line": 71,
-        "version": 5903,
-        "index": 1918
-      },
-      {
-        "id": "b91715f2-4427-460f-8fa9-ec50f0f41cac",
-        "line": 245,
-        "version": 5903,
-        "index": 6584
+        "line": 74,
+        "version": 7280,
+        "index": 2022
       },
       {
         "id": "61d37e8c-1b5e-49ec-8597-73d4fbf0e188",
-        "line": 282,
-        "version": 5903,
-        "index": 7654
+        "line": 285,
+        "version": 7280,
+        "index": 7813
       },
       {
         "id": "e589729b-a9c3-4c13-9df9-3079b418b389",
-        "line": 338,
-        "version": 5903,
-        "index": 9018
+        "line": 341,
+        "version": 7280,
+        "index": 9213
       },
       {
         "id": "b95c654f-1f7b-4dd4-95d0-5de1a583f9e7",
-        "line": 338,
-        "version": 5903,
-        "index": 9018
+        "line": 341,
+        "version": 7280,
+        "index": 9213
       }
     ],
     "main.cpp": [
       {
         "id": "ac827f81-dcbd-4dea-8085-1507a4eafb41",
-        "line": 39,
-        "version": 34128,
-        "index": 966
+        "line": 38,
+        "version": 34248,
+        "index": 914
       },
       {
         "id": "2e355d89-dffc-4450-be68-480ee300689a",
-        "line": 45,
-        "version": 34128,
-        "index": 1071
+        "line": 44,
+        "version": 34248,
+        "index": 1017
       },
       {
         "id": "61c426b0-a021-43f7-851d-55cd5526d783",
-        "line": 45,
-        "version": 34128,
-        "index": 1071
+        "line": 44,
+        "version": 34248,
+        "index": 1017
       },
       {
         "id": "57884339-487b-4ce6-8af6-461e04d785b6",
-        "line": 45,
-        "version": 34128,
-        "index": 1071
+        "line": 44,
+        "version": 34248,
+        "index": 1017
       }
     ],
     "options.cpp": [
       {
         "id": "df73ac99-a18e-4791-8b78-a38aa90ab17c",
         "line": 32,
-        "version": 5220,
-        "index": 805
+        "version": 5412,
+        "index": 806
       },
       {
         "id": "782ee3b4-7952-41dc-bf02-fe23b8f9b2d6",
         "line": 32,
-        "version": 5220,
-        "index": 805
+        "version": 5412,
+        "index": 806
       },
       {
         "id": "28f02b16-e254-4c45-b0eb-73f770effe3b",
-        "line": 50,
-        "version": 5220,
-        "index": 1281
+        "line": 51,
+        "version": 5412,
+        "index": 1288
       },
       {
         "id": "134d5e08-b3a5-4433-b598-ea8efff3cf05",
-        "line": 172,
-        "version": 5220,
-        "index": 4892
+        "line": 175,
+        "version": 5412,
+        "index": 4945
       }
     ]
   }
